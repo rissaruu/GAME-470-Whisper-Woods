@@ -1,0 +1,59 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem; //new Unity Input System
+using UnityEngine.UIElements;
+
+public class PlayerMovement : MonoBehaviour
+{
+    private PlayerInput playerInput;
+    private InputAction moveAction;
+
+    public Rigidbody rb;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        playerInput = GetComponent<PlayerInput>();
+        moveAction = playerInput.actions.FindAction("Move");
+        rb = GetComponent<Rigidbody>();
+        GameManager.ResetVariables();
+    }
+
+    void Move()
+    {
+        Vector2 direction = moveAction.ReadValue<Vector2>();
+        transform.position += new Vector3(direction.x, 0, direction.y) * GameManager.playerWalkSpeed * Time.deltaTime;
+    }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        Move();
+
+        //Jump
+        if (playerInput.actions["Jump"].triggered && GameManager.canPlayer.jump)
+        {
+            GameManager.isPlayer.jumping = true;
+            Jump();
+        }
+    }
+
+    public void Jump()
+    {
+        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        rb.AddForce(Vector3.up * GameManager.playerJumpForce, ForceMode.Impulse);
+        StartCoroutine(CanJumpAgain());
+    }
+
+    IEnumerator CanJumpAgain()
+    {
+        GameManager.canPlayer.jump = false;
+        yield return new WaitForSeconds(1f);
+        GameManager.isPlayer.jumping = false;
+        GameManager.canPlayer.jump = true;
+    }
+
+
+}
