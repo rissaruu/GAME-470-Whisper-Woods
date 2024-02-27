@@ -32,6 +32,11 @@ public class GameManager : MonoBehaviour
     public static CanPlayer canPlayer = new CanPlayer();
     public static IsPlayer isPlayer = new IsPlayer();
 
+    //GAME VARIABLES
+    public ProgressBar progressBar;
+    public const int totalEvidence = 5; // for each puzzle
+    public int foundEvidence; // increase this value after every puzzle
+
     public static void ResetVariables()
     {
         canPlayer.walk = true;
@@ -46,5 +51,14 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Variables Reset");
     }
+
+   
+/* For testing progress bar -Damian
+    void Start()
+    {
+        foundEvidence = 3;
+        progressBar.SetProgress(foundEvidence);
+    }
+*/
 
 }
