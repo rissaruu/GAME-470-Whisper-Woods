@@ -7,7 +7,7 @@ using static UnityEngine.GraphicsBuffer;
 public class CameraController : MonoBehaviour
 {
     //public float sensitivity = 2f;
-    public float speed = 10f;
+    public float speed = 40f;
 
     public float minAngle = -45f;
     public float maxAngle = 45f;
@@ -31,15 +31,19 @@ public class CameraController : MonoBehaviour
 
     }
 
+
+    // Might remove this part because wonky with the movement settings - Damian
     private void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.Q))
         {
-            RotateCameraHorizontal(-speed * Time.deltaTime);
+            transform.RotateAround(player.transform.position, Vector3.up, -speed * Time.deltaTime);
+    //        RotateCameraHorizontal(-speed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.E))
         {
-            RotateCameraHorizontal(speed * Time.deltaTime);
+       //     RotateCameraHorizontal(speed * Time.deltaTime);
+            transform.RotateAround(player.transform.position, Vector3.up, speed * Time.deltaTime);
         }
 
     }

@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private InputAction moveAction;
 
     public Rigidbody rb;
+    public Camera mainCamera;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +24,42 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         Vector2 direction = moveAction.ReadValue<Vector2>();
+
+        Vector3 cameraForward = mainCamera.transform.forward;
+        Vector3 cameraRight = mainCamera.transform.right;
+
+        cameraForward.y = 0f;
+        cameraRight.y = 0f;
+
+        cameraForward.Normalize();
+        cameraRight.Normalize();
+
+        // Get the movement direction based on the camera's forward direction
+        Vector3 movementDirection = cameraForward * direction.y + cameraRight * direction.x;
+        movementDirection.Normalize(); // Normalize the movement direction vector
+
+
+        // Move the player
+        transform.position += movementDirection * GameManager.playerWalkSpeed * Time.deltaTime;
+
+        if (movementDirection != Vector3.zero)
+        {
+            // Rotate player towards the camera's forward direction
+            Quaternion targetRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * GameManager.rotationSpeed);
+        }
+
+
+        /*
+        Vector3 movementDirection = new Vector3(direction.x, 0, direction.y);
         transform.position += new Vector3(direction.x, 0, direction.y) * GameManager.playerWalkSpeed * Time.deltaTime;
+        if (movementDirection != Vector3.zero)
+        {
+            // Rotate player towards the direction of movement
+            Quaternion targetRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * GameManager.rotationSpeed);
+        }
+        */
     }
 
 
@@ -31,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Move();
+
 
         //Jump
         if (playerInput.actions["Jump"].triggered && GameManager.canPlayer.jump)

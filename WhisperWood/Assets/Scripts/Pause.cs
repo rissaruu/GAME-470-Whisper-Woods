@@ -30,15 +30,17 @@ public class Pause : MonoBehaviour
 
     public void PauseGame()
     {
-        notebook.SetActive(true);
-        GameManager.isGamePaused = true;
         
+        GameManager.isGamePaused = true;
+        Time.timeScale = 0f;
+        notebook.SetActive(true); //currently need to fix functionality while paused - Damian
     }
 
     public void ResumeGame()
     {
-        notebook.SetActive(false);
-        GameManager.isGamePaused = false;
         
+        GameManager.isGamePaused = false;
+        Time.timeScale = 1f;
+        notebook.SetActive(false);
     }
 }
