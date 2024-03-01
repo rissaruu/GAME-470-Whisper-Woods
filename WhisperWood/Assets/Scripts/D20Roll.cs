@@ -10,20 +10,21 @@ public class D20Roll : MonoBehaviour
 
     private bool isRolling = false; // Flag to track if the d20 is currently rolling
 
-    //void Update() 
-    //{
-    //    if (Input.GetKeyDown(KeyCode.R)) // Check for input to roll the d20
-    //    {
-    //        RollD20();
-    //    }
-
-    //} was used for testing
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R)) // Check for input to roll the d20
+        {
+            RollD20();
+        }
+    }
+        //Above was used for testing
 
     public void RollD20()
     {
         if (!isRolling)
         {
             StartCoroutine(RollAnimation());
+            isRolling = false;
         }
     }
 
@@ -33,6 +34,8 @@ public class D20Roll : MonoBehaviour
 
         // Generate a random number between 1 and 20
         result = Random.Range(1, 21);
+
+        Debug.Log("Result: " + result);
 
         // Rotate the d20 dice model to simulate rolling
         Quaternion startRotation = d20Model.transform.rotation;
@@ -116,7 +119,6 @@ public class D20Roll : MonoBehaviour
         }
 
         d20Model.transform.rotation = targetRotation;
-        isRolling = false;
     }
 }
 //When a dialouge script is made, use this to call upon the dice roll

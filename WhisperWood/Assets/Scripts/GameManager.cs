@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         foundEvidence = 0;
 
      // Keep this commented for now until applicable
-     //   ItemIndex.ResetKeyItems();  
+     // ItemIndex.ResetKeyItems();  
 
         Debug.Log("Variables Reset");
     }
