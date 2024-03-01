@@ -6,11 +6,10 @@ using UnityEngine.UI;
 public class ProgressBar : MonoBehaviour
 {
     public Slider slider;
-    public GameManager gameManager;
 
     public void SetProgress(int progress)
     {
-        progress = gameManager.foundEvidence;
+        progress = GameManager.foundEvidence;
         slider.value = progress;
     }
 

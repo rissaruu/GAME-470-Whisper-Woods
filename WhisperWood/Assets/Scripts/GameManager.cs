@@ -35,8 +35,8 @@ public class GameManager : MonoBehaviour
 
     //GAME VARIABLES
     public ProgressBar progressBar;
-    public const int totalEvidence = 5; // for each puzzle
-    public int foundEvidence; // increase this value after every puzzle
+    public const int totalEvidence = 7; // for each puzzle
+    public static int foundEvidence; // increase this value after every puzzle
 
     public static void ResetVariables()
     {
@@ -49,6 +49,9 @@ public class GameManager : MonoBehaviour
         isPlayer.running = false;
         isPlayer.jumping = false;
         isPlayer.crouching = false;
+
+        foundEvidence = 0;
+        ItemIndex.ResetKeyItems();
 
         Debug.Log("Variables Reset");
     }
