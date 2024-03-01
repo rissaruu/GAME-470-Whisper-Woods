@@ -17,6 +17,7 @@ public class ObjectInteract : MonoBehaviour
     public void Grab(Transform offsetTransform)
     {
         this.offsetTransform = offsetTransform;
+        objectRigidbody.constraints = RigidbodyConstraints.None;
         objectRigidbody.useGravity = false;
     }
 
@@ -24,6 +25,8 @@ public class ObjectInteract : MonoBehaviour
     {
         this.offsetTransform = null;
         objectRigidbody.useGravity = true;
+        objectRigidbody.constraints = RigidbodyConstraints.FreezeAll & ~RigidbodyConstraints.FreezePositionY;
+       
     }
 
     private void FixedUpdate()

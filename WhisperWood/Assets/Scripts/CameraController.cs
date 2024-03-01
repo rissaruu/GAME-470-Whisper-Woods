@@ -32,7 +32,11 @@ public class CameraController : MonoBehaviour
     }
 
 
+  
+    
     // Might remove this part because wonky with the movement settings - Damian
+
+    /*
     private void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.Q))
@@ -47,7 +51,7 @@ public class CameraController : MonoBehaviour
         }
 
     }
-
+*/
 
     void RotateCameraHorizontal(float angle)
     {

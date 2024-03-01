@@ -15,7 +15,7 @@ public class Interactable : MonoBehaviour
         {
             if (objectInteractable == null) //not carrying an object
             {
-                float pickupDistance = 2f;
+                float pickupDistance = 10f;
                 Vector3 dotPosition = centerDotTransform.position;
                 Ray ray = Camera.main.ScreenPointToRay(dotPosition);
                 if (Physics.Raycast(ray, out RaycastHit raycastHit, pickupDistance, pickupLayerMask))

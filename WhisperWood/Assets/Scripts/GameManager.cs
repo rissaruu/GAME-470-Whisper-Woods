@@ -51,7 +51,9 @@ public class GameManager : MonoBehaviour
         isPlayer.crouching = false;
 
         foundEvidence = 0;
-        ItemIndex.ResetKeyItems();
+
+     // Keep this commented for now until applicable
+     //   ItemIndex.ResetKeyItems();  
 
         Debug.Log("Variables Reset");
     }
