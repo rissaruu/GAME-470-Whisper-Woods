@@ -29,6 +29,8 @@ public class CameraController : MonoBehaviour
         //float mouseY = Input.GetAxis("Mouse Y");
         //transform.eulerAngles += new Vector3(-mouseY * sensitivity, mouseX * sensitivity, 0);
 
+        
+
     }
 
 

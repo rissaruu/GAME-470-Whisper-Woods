@@ -19,6 +19,8 @@ public struct CanPlayer
     public bool crouch;
 }
 
+
+
 public class GameManager : MonoBehaviour
 {  
     public static bool isGamePaused = false;
@@ -37,6 +39,8 @@ public class GameManager : MonoBehaviour
     public ProgressBar progressBar;
     public const int totalEvidence = 7; // for each puzzle
     public static int foundEvidence; // increase this value after every puzzle
+
+    public PlayerMovement PlayerMovement;
 
     public static void ResetVariables()
     {
@@ -58,13 +62,18 @@ public class GameManager : MonoBehaviour
         Debug.Log("Variables Reset");
     }
 
-   
-/* For testing progress bar -Damian
-    void Start()
+
+    /* For testing progress bar -Damian
+        void Start()
+        {
+            foundEvidence = 3;
+            progressBar.SetProgress(foundEvidence);
+        }
+    */
+
+    public void Start()
     {
-        foundEvidence = 3;
-        progressBar.SetProgress(foundEvidence);
+       
     }
-*/
 
 }

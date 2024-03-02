@@ -12,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody rb;
     public Camera mainCamera;
 
+    public bool isDiceActive;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
         moveAction = playerInput.actions.FindAction("Move");
         rb = GetComponent<Rigidbody>();
         GameManager.ResetVariables();
+        isDiceActive = true; //Will need to change when this is actually set to true/when dice is set to active
     }
 
     void Move()
@@ -41,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
         // Move the player
         transform.position += movementDirection * GameManager.playerWalkSpeed * Time.deltaTime;
 
-        if (movementDirection != Vector3.zero && direction.y != -1f)
+        if (movementDirection != Vector3.zero && direction.y != -1f && isDiceActive == false)
         {
             // Rotate player towards the camera's forward direction
             Quaternion targetRotation = Quaternion.LookRotation(movementDirection, Vector3.up);

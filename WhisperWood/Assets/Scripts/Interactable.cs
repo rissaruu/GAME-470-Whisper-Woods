@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Interactable : MonoBehaviour
 {
@@ -9,6 +10,24 @@ public class Interactable : MonoBehaviour
     [SerializeField] private LayerMask pickupLayerMask;
 
     private ObjectInteract objectInteractable;
+
+    public GameObject addToInventoryButton;
+    public GameObject interactingObject;
+    
+
+    private void Start()
+    {
+        addToInventoryButton.SetActive(false);
+        interactingObject = null;
+    }
+
+    public void OnInventoryButtonClick()
+    {
+        interactingObject.SetActive(false);
+        addToInventoryButton.SetActive(false);
+    }
+
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
@@ -25,6 +44,8 @@ public class Interactable : MonoBehaviour
                     {
                         objectInteractable.Grab(offsetTransform);
                         Debug.Log(objectInteractable);
+                        addToInventoryButton.SetActive(true);
+                        interactingObject = objectInteractable.gameObject;
                     }
 
                 }
@@ -33,6 +54,7 @@ public class Interactable : MonoBehaviour
             {
                 objectInteractable.Drop();
                 objectInteractable = null;
+                addToInventoryButton.SetActive(false);
             }
 
         }

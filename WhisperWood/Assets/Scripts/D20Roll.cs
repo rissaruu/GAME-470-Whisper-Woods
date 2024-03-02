@@ -10,6 +10,8 @@ public class D20Roll : MonoBehaviour
 
     private bool isRolling = false; // Flag to track if the d20 is currently rolling
 
+    
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.R)) // Check for input to roll the d20
