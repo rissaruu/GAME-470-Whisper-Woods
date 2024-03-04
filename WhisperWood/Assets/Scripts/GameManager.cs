@@ -17,6 +17,7 @@ public struct CanPlayer
     public bool run;
     public bool jump;
     public bool crouch;
+    public bool rotate;
 }
 
 
@@ -48,6 +49,7 @@ public class GameManager : MonoBehaviour
         canPlayer.run = true;
         canPlayer.jump = true;
         canPlayer.crouch = true;
+        canPlayer.rotate = true;
 
         isPlayer.walking = false;
         isPlayer.running = false;
