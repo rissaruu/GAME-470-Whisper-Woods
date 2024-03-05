@@ -5,7 +5,7 @@ using UnityEngine.InputSystem; //new Unity Input System
 //using UnityEngine.UIElements;
 using UnityEngine.UI;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IDataPersistence
 {
     private PlayerInput playerInput;
     private InputAction moveAction;
@@ -85,6 +85,18 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(1f);
         GameManager.isPlayer.jumping = false;
         GameManager.canPlayer.jump = true;
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.transform.position = data.playerPosition;
+        this.transform.rotation = data.playerRotation;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.playerPosition = this.transform.position;
+        data.playerRotation = this.transform.rotation;
     }
 
 
