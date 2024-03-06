@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
 {
     private PlayerInput playerInput;
     private InputAction moveAction;
+    private Animator Animations;
+
 
     public Rigidbody rb;
     public Camera mainCamera;
@@ -19,6 +21,7 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         playerInput = GetComponent<PlayerInput>();
+        Animations = GetComponent<Animator>();
         moveAction = playerInput.actions.FindAction("Move");
         rb = GetComponent<Rigidbody>();
         GameManager.ResetVariables();
@@ -27,6 +30,9 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
 
     void Move()
     {
+        GameManager.isPlayer.walking = true;
+        Animations.SetBool("walking", GameManager.isPlayer.walking);
+
         Vector2 direction = moveAction.ReadValue<Vector2>();
 
         Vector3 cameraForward = mainCamera.transform.forward;
@@ -70,6 +76,10 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
             GameManager.isPlayer.jumping = true;
             Jump();
         }
+
+        GameManager.isPlayer.walking = false;
+        GameManager.isPlayer.running = false;
+
     }
 
     public void Jump()
@@ -98,6 +108,5 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
         data.playerPosition = this.transform.position;
         data.playerRotation = this.transform.rotation;
     }
-
 
 }

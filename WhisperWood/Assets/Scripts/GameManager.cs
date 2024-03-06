@@ -7,7 +7,6 @@ public struct IsPlayer
     public bool walking;
     public bool running;
     public bool jumping;
-    public bool crouching;
 }
 
 
@@ -16,7 +15,6 @@ public struct CanPlayer
     public bool walk;
     public bool run;
     public bool jump;
-    public bool crouch;
     public bool rotate;
 }
 
@@ -29,7 +27,6 @@ public class GameManager : MonoBehaviour
     //PLAYER VARIABLES
     public const float playerWalkSpeed = 3f;
     public const float rotationSpeed = 5f;
-    public const float crouchSpeedMod = -0.5f;
     public const float runSpeedMod = 4f;
     public const float playerJumpForce = 4f;
 
@@ -48,13 +45,11 @@ public class GameManager : MonoBehaviour
         canPlayer.walk = true;
         canPlayer.run = true;
         canPlayer.jump = true;
-        canPlayer.crouch = true;
         canPlayer.rotate = true;
 
         isPlayer.walking = false;
         isPlayer.running = false;
         isPlayer.jumping = false;
-        isPlayer.crouching = false;
 
         foundEvidence = 0;
 
