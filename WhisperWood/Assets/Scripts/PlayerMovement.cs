@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
 {
     private PlayerInput playerInput;
     private InputAction moveAction;
-    private Animator Animations;
+    //private Animator Animations; All of these comments should be removed when player status is granted to the detective - CH
 
 
     public Rigidbody rb;
@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         playerInput = GetComponent<PlayerInput>();
-        Animations = GetComponent<Animator>();
+        //Animations = GetComponent<Animator>();
         moveAction = playerInput.actions.FindAction("Move");
         rb = GetComponent<Rigidbody>();
         GameManager.ResetVariables();
@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
     void Move()
     {
         GameManager.isPlayer.walking = true;
-        Animations.SetBool("walking", GameManager.isPlayer.walking);
+        //Animations.SetBool("walking", GameManager.isPlayer.walking);
 
         Vector2 direction = moveAction.ReadValue<Vector2>();
 

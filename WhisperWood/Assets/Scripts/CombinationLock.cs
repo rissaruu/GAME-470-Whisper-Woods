@@ -36,9 +36,9 @@ public class CombinationLock : MonoBehaviour
         inputList = new List<string>();
         comparisonList = new List<int>();
 
-        correctCombination.Add(1);
+        correctCombination.Add(3);
+        correctCombination.Add(8);
         correctCombination.Add(2);
-        correctCombination.Add(4);
 
         LockUI.SetActive(false);
         solvedCombination = false;
@@ -126,9 +126,8 @@ public class CombinationLock : MonoBehaviour
             Debug.Log("YOU SOLVED IT");
             solvedCombination = true;
 
-            Quaternion target = new Quaternion(luggageTopPiece.transform.rotation.x, luggageTopPiece.transform.rotation.y, luggageTopPiece.transform.rotation.z - 122f, 0f);
-            float smooth = 5.0f;
-            luggageTopPiece.transform.rotation = Quaternion.Slerp(luggageTopPiece.transform.rotation, target, Time.deltaTime * smooth);
+            luggageTopPiece.transform.position += Vector3.up * 0.008f;
+            luggageTopPiece.transform.eulerAngles += new Vector3(0, 0, -34f);
 
             CloseLuggageUI();
   
