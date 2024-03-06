@@ -138,6 +138,7 @@ public class DialogueManager : MonoBehaviour
 
 
                 option1Button.gameObject.SetActive(true);
+                
                 option1Button.GetComponentInChildren<TMP_Text>().text = line.answerOption1;
                 option1Button.onClick.AddListener(() => HandleOptionSelected(line.option1IndexJump));
 
