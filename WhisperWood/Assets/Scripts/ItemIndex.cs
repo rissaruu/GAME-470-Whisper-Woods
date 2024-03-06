@@ -83,4 +83,17 @@ public class ItemIndex : MonoBehaviour
 
     //}
     //Have to be carefull with capital letters and spelling -Christian
+
+    /*
+    Also attach these WIP methods to each item script -Damian
+    public void LoadData(GameData data)
+    {
+        data.keyItemCollected.;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.keyItemCollected.;
+    }
+    */
 }

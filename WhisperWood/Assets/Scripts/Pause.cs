@@ -30,17 +30,31 @@ public class Pause : MonoBehaviour
 
     public void PauseGame()
     {
-        
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         GameManager.isGamePaused = true;
-        Time.timeScale = 0f;
-        notebook.SetActive(true); //currently need to fix functionality while paused - Damian
+        GameManager.canPlayer.walk = false;
+        GameManager.canPlayer.run = false;
+        GameManager.canPlayer.jump = false;
+        GameManager.canPlayer.crouch = false;
+        GameManager.canPlayer.rotate = false;
+        //   Time.timeScale = 0f;
+        notebook.SetActive(true); 
     }
 
     public void ResumeGame()
     {
-        
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         GameManager.isGamePaused = false;
-        Time.timeScale = 1f;
+        GameManager.canPlayer.walk = true;
+        GameManager.canPlayer.run = true;
+        GameManager.canPlayer.jump = true;
+        GameManager.canPlayer.crouch = true;
+        GameManager.canPlayer.rotate = true;
+      //  Time.timeScale = 1f;
         notebook.SetActive(false);
     }
 }
