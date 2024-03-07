@@ -131,6 +131,7 @@ public class CombinationLock : MonoBehaviour
             luggageTopPiece.transform.position += Vector3.up * 0.008f;
             luggageTopPiece.transform.eulerAngles += new Vector3(0, 0, -34f);
             duplicateKey.SetActive(true);
+            GameManager.canCamera = true;
 
             CloseLuggageUI();
   

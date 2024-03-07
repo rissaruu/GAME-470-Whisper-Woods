@@ -35,6 +35,7 @@ public class LuggageTrigger : MonoBehaviour
         {
             CombinationLock.CloseLuggageUI();
             canTrigger = false;
+            GameManager.canCamera = true;
         }
 
         if (canTrigger && Input.GetKeyDown(KeyCode.E))
@@ -42,6 +43,7 @@ public class LuggageTrigger : MonoBehaviour
             CombinationLock.OpenLuggageUI();
             canTrigger = false;
             isTryingCombination = true;
+            GameManager.canCamera = false;
 
         }
 
