@@ -9,32 +9,41 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
 {
     private PlayerInput playerInput;
     private InputAction moveAction;
-    //private Animator Animations; All of these comments should be removed when player status is granted to the detective - CH
-
+    private InputAction rotateCameraAction; // New input action for camera rotation
 
     public Rigidbody rb;
     public Camera mainCamera;
 
-    // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         playerInput = GetComponent<PlayerInput>();
-        //Animations = GetComponent<Animator>();
         moveAction = playerInput.actions.FindAction("Move");
+        rotateCameraAction = playerInput.actions.FindAction("RotateCamera"); // Initialize rotateCameraAction
+
         rb = GetComponent<Rigidbody>();
         GameManager.ResetVariables();
-
     }
 
     void Move()
     {
         GameManager.isPlayer.walking = true;
-        //Animations.SetBool("walking", GameManager.isPlayer.walking);
 
         Vector2 direction = moveAction.ReadValue<Vector2>();
 
+
+            // Get the movement direction based on the input
+            Vector3 movementDirection = new Vector3(direction.x, 0f, direction.y);
+
+            // Normalize the movement direction to ensure consistent speed
+            movementDirection.Normalize();
+
+            // Move the player
+            transform.position += transform.TransformDirection(movementDirection) * GameManager.playerWalkSpeed * Time.deltaTime;
+
+
+        /*
         Vector3 cameraForward = mainCamera.transform.forward;
         Vector3 cameraRight = mainCamera.transform.right;
 
@@ -44,36 +53,28 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
         cameraForward.Normalize();
         cameraRight.Normalize();
 
-        // Get the movement direction based on the camera's forward direction
         Vector3 movementDirection = cameraForward * direction.y + cameraRight * direction.x;
-        movementDirection.Normalize(); // Normalize the movement direction vector
+        movementDirection.Normalize();
 
-        // Move the player
         transform.position += movementDirection * GameManager.playerWalkSpeed * Time.deltaTime;
 
         if (movementDirection != Vector3.zero && direction.y != -1f && GameManager.canPlayer.rotate)
         {
-            // Rotate player towards the camera's forward direction
             Quaternion targetRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * GameManager.rotationSpeed);
         }
-
-
+        */
 
     }
 
-
-    // Update is called once per frame
     void Update()
     {
         if (GameManager.canPlayer.walk)
         {
             Move();
         }
-        
 
-
-        //Jump
+        // Jump
         if (playerInput.actions["Jump"].triggered && GameManager.canPlayer.jump)
         {
             GameManager.isPlayer.jumping = true;
@@ -82,7 +83,6 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
 
         GameManager.isPlayer.walking = false;
         GameManager.isPlayer.running = false;
-
     }
 
     public void Jump()
@@ -111,5 +111,4 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
         data.playerPosition = this.transform.position;
         data.playerRotation = this.transform.rotation;
     }
-
 }

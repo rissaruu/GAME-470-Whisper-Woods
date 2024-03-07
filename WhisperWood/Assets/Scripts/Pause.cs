@@ -35,6 +35,7 @@ public class Pause : MonoBehaviour
         Cursor.visible = true;
 
         GameManager.isGamePaused = true;
+        GameManager.canCamera = false;
         GameManager.canPlayer.walk = false;
         GameManager.canPlayer.run = false;
         GameManager.canPlayer.jump = false;
@@ -47,7 +48,7 @@ public class Pause : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
+        GameManager.canCamera = true;
         GameManager.isGamePaused = false;
         GameManager.canPlayer.walk = true;
         GameManager.canPlayer.run = true;

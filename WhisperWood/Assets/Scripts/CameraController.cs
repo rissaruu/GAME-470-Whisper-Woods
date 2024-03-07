@@ -6,36 +6,39 @@ using static UnityEngine.GraphicsBuffer;
 
 public class CameraController : MonoBehaviour
 {
-    //public float sensitivity = 2f;
-    public float speed = 40f;
+    public float sensitivity = 2f;
+    public float speed = 20f;
 
-    public float minAngle = -45f;
-    public float maxAngle = 45f;
+    public float minAngle = -30f;
+    public float maxAngle = 30f;
 
     public GameObject player;
 
 
+    private float rotationX = 0f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        //float mouseX = Input.GetAxis("Mouse X");
-        //float mouseY = Input.GetAxis("Mouse Y");
-        //transform.eulerAngles += new Vector3(-mouseY * sensitivity, mouseX * sensitivity, 0);
+        if (GameManager.canCamera)
+        {
 
-        
+            float mouseX = Input.GetAxis("Mouse X");
+            float mouseY = Input.GetAxis("Mouse Y");
 
+            // Rotate the player horizontally based on mouse input
+            player.transform.Rotate(Vector3.up * mouseX * sensitivity);
+
+            // Adjust the camera angle vertically based on mouse input
+            rotationX -= mouseY * sensitivity;
+            rotationX = Mathf.Clamp(rotationX, minAngle, maxAngle);
+
+            transform.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
+        }
     }
 
 
-  
-    
+
+
     // Might remove this part because wonky with the movement settings - Damian
 
     /*

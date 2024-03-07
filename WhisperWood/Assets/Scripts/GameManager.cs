@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     public PlayerMovement PlayerMovement;
     public static bool canPause = true;
+    public static bool canCamera = true;
 
     public static void ResetVariables()
     {
