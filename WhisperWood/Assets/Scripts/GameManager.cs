@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     public static bool isGamePaused = false;
 
     //PLAYER VARIABLES
-    public const float playerWalkSpeed = 10f;
+    public const float playerWalkSpeed = 5f;
     public const float rotationSpeed = 5f;
     public const float runSpeedMod = 4f;
     public const float playerJumpForce = 4f;
