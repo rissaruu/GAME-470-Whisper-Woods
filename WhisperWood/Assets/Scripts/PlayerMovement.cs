@@ -57,6 +57,9 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
             Quaternion targetRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * GameManager.rotationSpeed);
         }
+
+
+
     }
 
 

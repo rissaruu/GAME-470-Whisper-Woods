@@ -48,6 +48,7 @@ public class DialogueManager : MonoBehaviour
     public void DialogueStart(List<DialogueString> textToPrint, Transform NPC, GameObject character)
     {
         dialogueParent.SetActive(true);
+        GameManager.canPause = false;
         GameManager.canPlayer.walk = false;
         GameManager.canPlayer.rotate = false;
         GameManager.canPlayer.jump = false;
@@ -216,6 +217,7 @@ public class DialogueManager : MonoBehaviour
         GameManager.canPlayer.walk = true;
         GameManager.canPlayer.rotate = true;
         GameManager.canPlayer.jump = true;
+        GameManager.canPause = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         centerPoint.SetActive(true);

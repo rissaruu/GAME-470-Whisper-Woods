@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     public static int foundEvidence; // increase this value after every puzzle
 
     public PlayerMovement PlayerMovement;
+    public static bool canPause = true;
 
     public static void ResetVariables()
     {
