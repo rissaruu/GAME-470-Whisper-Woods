@@ -28,6 +28,7 @@ public class CombinationLock : MonoBehaviour
     private bool solvedCombination;
 
     [SerializeField] private GameObject luggageTopPiece;
+    [SerializeField] private GameObject duplicateKey;
 
 
     private void Start()
@@ -35,6 +36,7 @@ public class CombinationLock : MonoBehaviour
         correctCombination = new List<int>();
         inputList = new List<string>();
         comparisonList = new List<int>();
+        duplicateKey.SetActive(false);
 
         correctCombination.Add(3);
         correctCombination.Add(8);
@@ -128,6 +130,7 @@ public class CombinationLock : MonoBehaviour
 
             luggageTopPiece.transform.position += Vector3.up * 0.008f;
             luggageTopPiece.transform.eulerAngles += new Vector3(0, 0, -34f);
+            duplicateKey.SetActive(true);
 
             CloseLuggageUI();
   
