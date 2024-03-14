@@ -23,6 +23,15 @@ public class DialogueManager : MonoBehaviour
 
     private int currentDialogueIndex = 0;
 
+    public Image characterCard;
+    public TMP_Text nameTextBox;
+    public GameObject nameBox;
+
+    //Bools for checking pace of dialogue
+    private bool IsBeginnerDialogueComplete;
+
+    public GameObject BeetlemastTrigger2;
+
 
     private void Start()
     {
@@ -30,26 +39,61 @@ public class DialogueManager : MonoBehaviour
         //playerCamera = Camera.main.transform;
         option1Button.gameObject.SetActive(false);
         option2Button.gameObject.SetActive(false);
+        characterCard.enabled = false;
+        nameTextBox.enabled = false;
+        nameBox.SetActive(false);
+        BeetlemastTrigger2.SetActive(false);
     }
 
-    public void DialogueStart(List<DialogueString> textToPrint, Transform NPC)
+    public void DialogueStart(List<DialogueString> textToPrint, Transform NPC, GameObject character)
     {
         dialogueParent.SetActive(true);
+        GameManager.canCamera = false;
+        GameManager.canPause = false;
         GameManager.canPlayer.walk = false;
         GameManager.canPlayer.rotate = false;
         GameManager.canPlayer.jump = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        nameTextBox.enabled = true;
+        nameBox.SetActive(true);
+
+        if (character.CompareTag("Beetlemast"))
+        {
+            characterCard.enabled = true;
+            nameTextBox.GetComponent<TextMeshProUGUI>().text = "Beetlemast";
+            if (character.name == "BeetleDialogueTrigger1")
+            {
+                character.SetActive(false);
+                IsBeginnerDialogueComplete = true;
+            }
+
+            
+        }
+
+        if (character.CompareTag("Tom"))
+        {
+            nameTextBox.GetComponent<TextMeshProUGUI>().text = "Tim";
+        }
 
         //StartCoroutine(TurnCameraTowardsNPC(NPC));
 
         dialogueList = textToPrint;
         currentDialogueIndex = 0;
 
+        CheckDialogueConditions();
         DisableButtons();
         centerPoint.SetActive(false);
 
         StartCoroutine(PrintDialogue());
+    }
+
+    private void CheckDialogueConditions()
+    {
+        if (IsBeginnerDialogueComplete)
+        {
+            BeetlemastTrigger2.SetActive(true);
+        }
     }
 
     private void DisableButtons()
@@ -88,27 +132,45 @@ public class DialogueManager : MonoBehaviour
 
             if (line.isQuestion)
             {
-                yield return StartCoroutine(TypeText(line.text));
+                yield return StartCoroutine(TypeText(line.npcDialogue));
 
                 //option1Button.interactable = true;
                 //option2Button.interactable = true;
 
+
+
                 option1Button.gameObject.SetActive(true);
-                option2Button.gameObject.SetActive(true);
-
+                
                 option1Button.GetComponentInChildren<TMP_Text>().text = line.answerOption1;
-                option2Button.GetComponentInChildren<TMP_Text>().text = line.answerOption2;
-
                 option1Button.onClick.AddListener(() => HandleOptionSelected(line.option1IndexJump));
-                option2Button.onClick.AddListener(() => HandleOptionSelected(line.option2IndexJump));
+
+                if (!line.oneOption) //checking that there isn't only one option
+                {
+                    option2Button.gameObject.SetActive(true);
+                    option2Button.GetComponentInChildren<TMP_Text>().text = line.answerOption2;
+                    option2Button.onClick.AddListener(() => HandleOptionSelected(line.option2IndexJump));
+                }
+                //else
+                //{
+                //    RectTransform buttonRectTransform = option1Button.GetComponent<RectTransform>();
+                //    Vector3 newPosition = buttonRectTransform.position;
+                //    newPosition.x += 113;
+                //    buttonRectTransform.position = newPosition;
+                //}
+
 
                 yield return new WaitUntil(() => optionSelected);
 
             }
             else
             {
-                yield return StartCoroutine(TypeText(line.text));
+                yield return StartCoroutine(TypeText(line.npcDialogue));
             }
+            if (line.branchBackToMain)
+            {
+                currentDialogueIndex = line.option3IndexJump;
+            }
+
             line.endDialogueEvent?.Invoke();
 
             optionSelected = false;
@@ -122,6 +184,7 @@ public class DialogueManager : MonoBehaviour
         DisableButtons();
 
         currentDialogueIndex = indexJump;
+
     }
 
     private IEnumerator TypeText(string text)
@@ -155,9 +218,14 @@ public class DialogueManager : MonoBehaviour
         GameManager.canPlayer.walk = true;
         GameManager.canPlayer.rotate = true;
         GameManager.canPlayer.jump = true;
+        GameManager.canPause = true;
+        GameManager.canCamera = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         centerPoint.SetActive(true);
+        characterCard.enabled = false;
+        nameTextBox.enabled = false;
+        nameBox.SetActive(false);
 
     }
 }

@@ -6,8 +6,7 @@ public class ObjectInteract : MonoBehaviour
 {
     private Rigidbody objectRigidbody;
     private Transform offsetTransform;
-    public GameObject dialogueTrigger1;
-    public GameObject dialogueTrigger2;
+
 
     private void Awake()
     {
@@ -17,8 +16,7 @@ public class ObjectInteract : MonoBehaviour
 
     private void Start()
     {
-        dialogueTrigger1.SetActive(true);
-        dialogueTrigger2.SetActive(false);
+        
     }
 
     public void Grab(Transform offsetTransform)
@@ -27,9 +25,7 @@ public class ObjectInteract : MonoBehaviour
         objectRigidbody.constraints = RigidbodyConstraints.None;
         objectRigidbody.useGravity = false;
 
-        //dialogue testing
-        dialogueTrigger1.SetActive(false);
-        dialogueTrigger2.SetActive(true);
+     
     }
 
     public void Drop()

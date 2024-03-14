@@ -53,6 +53,7 @@ public class Interactable : MonoBehaviour
             else //carrying something
             {
                 objectInteractable.Drop();
+                Debug.Log("reaching");
                 objectInteractable = null;
                 addToInventoryButton.SetActive(false);
             }

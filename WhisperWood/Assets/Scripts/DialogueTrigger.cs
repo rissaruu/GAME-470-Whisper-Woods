@@ -9,13 +9,36 @@ public class DialogueTrigger : MonoBehaviour
     [SerializeField] private Transform NPCTransform;
 
     private bool hasSpoken = false;
+    private bool canTrigger;
+
+    private GameObject collidedObject;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") )//&& !hasSpoken)
+        if (other.CompareTag("Player"))//&& !hasSpoken)
         {
-            other.gameObject.GetComponent<DialogueManager>().DialogueStart(dialogueStrings, NPCTransform);
-            hasSpoken = true;
+            canTrigger = true;
+            collidedObject = other.gameObject;
+
+
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            canTrigger = false;
+            collidedObject = null;
+        }
+    }
+
+    private void Update()
+    {
+        if (canTrigger && Input.GetKeyDown(KeyCode.E))
+        {
+            collidedObject.GetComponent<DialogueManager>().DialogueStart(dialogueStrings, NPCTransform, gameObject);
+            //hasSpoken = true;
+            canTrigger = false;
 
         }
     }
@@ -25,15 +48,18 @@ public class DialogueTrigger : MonoBehaviour
 
 public class DialogueString
 {
-    public string text; //Represent the text that the npc says
+    public string npcDialogue; //Represent the text that the npc says
     public bool isEnd; //Represent if the line is the final line for the conversation
 
     [Header("Branch")]
     public bool isQuestion;
+    public bool branchBackToMain;
+    public bool oneOption;
     public string answerOption1;
     public string answerOption2;
     public int option1IndexJump;
     public int option2IndexJump;
+    public int option3IndexJump;
 
     [Header("Triggered Events")]
     public UnityEvent startDialogueEvent;

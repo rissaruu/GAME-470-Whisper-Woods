@@ -15,7 +15,8 @@ public class Pause : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        
+        if (Input.GetKeyDown(KeyCode.Escape) && GameManager.canPause)
         {
             if (!GameManager.isGamePaused)
             {
@@ -34,10 +35,10 @@ public class Pause : MonoBehaviour
         Cursor.visible = true;
 
         GameManager.isGamePaused = true;
+        GameManager.canCamera = false;
         GameManager.canPlayer.walk = false;
         GameManager.canPlayer.run = false;
         GameManager.canPlayer.jump = false;
-        GameManager.canPlayer.crouch = false;
         GameManager.canPlayer.rotate = false;
         //   Time.timeScale = 0f;
         notebook.SetActive(true); 
@@ -47,12 +48,11 @@ public class Pause : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
+        GameManager.canCamera = true;
         GameManager.isGamePaused = false;
         GameManager.canPlayer.walk = true;
         GameManager.canPlayer.run = true;
         GameManager.canPlayer.jump = true;
-        GameManager.canPlayer.crouch = true;
         GameManager.canPlayer.rotate = true;
       //  Time.timeScale = 1f;
         notebook.SetActive(false);
