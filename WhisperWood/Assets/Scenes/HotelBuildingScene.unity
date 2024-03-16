@@ -21311,38 +21311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba5d38866d3fc842b99b15833e11310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: {fileID: 875550214}
-  moveAction:
-    m_Name: Move
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 73c0fdda-3da6-44c3-ae7a-34ede0a45971
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  rotateCameraAction:
-    m_Name: Rotate Camera
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 608b00ef-3ec6-49f4-b844-befb336225be
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  resetCameraAction:
-    m_Name: Reset Camera
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: e3ea258e-4eda-4cd0-b9c9-388fa98831f7
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  rb: {fileID: 875550215}
-  mainCamera: {fileID: 1396135629}
-  initialCameraPosition: {x: 0, y: 0, z: 0}
-  initialCameraRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &876558800
 GameObject:
   m_ObjectHideFlags: 0
@@ -28644,7 +28612,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1165945317
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35342,7 +35309,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1416651677
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37836,7 +37802,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8014426044146797672, guid: 4c8b01a832962a44dab01ddd6d47b734, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5806440222068420129, guid: 4c8b01a832962a44dab01ddd6d47b734, type: 3}
       propertyPath: m_Materials.Array.data[0]
