@@ -62,17 +62,11 @@ public class GameManager : MonoBehaviour
     }
 
 
-    /* For testing progress bar -Damian
-        void Start()
-        {
-            foundEvidence = 3;
-            progressBar.SetProgress(foundEvidence);
-        }
-    */
-
     public void Start()
     {
-       
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
     }
 
 }

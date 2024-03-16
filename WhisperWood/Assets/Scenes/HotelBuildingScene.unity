@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6979,7 +6979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ceb8b5f7cb0d434b9bb7ec436b968e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fileName: whisperwood_data.game
+  fileName: wwood.game
 --- !u!1001 &270222226
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21142,7 +21142,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 875550210}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.31, y: 1, z: 1.751}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -21341,6 +21341,8 @@ MonoBehaviour:
     m_Flags: 0
   rb: {fileID: 875550215}
   mainCamera: {fileID: 1396135629}
+  initialCameraPosition: {x: 0, y: 0, z: 0}
+  initialCameraRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &876558800
 GameObject:
   m_ObjectHideFlags: 0
@@ -28642,6 +28644,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1165945317
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35339,6 +35342,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1416651677
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37830,6 +37834,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -8014426044146797672, guid: 4c8b01a832962a44dab01ddd6d47b734, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -5806440222068420129, guid: 4c8b01a832962a44dab01ddd6d47b734, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -37847,8 +37855,16 @@ PrefabInstance:
       value: Detective
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4c8b01a832962a44dab01ddd6d47b734, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4c8b01a832962a44dab01ddd6d47b734, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 4c8b01a832962a44dab01ddd6d47b734, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 4c8b01a832962a44dab01ddd6d47b734, type: 3}
       propertyPath: m_Controller
