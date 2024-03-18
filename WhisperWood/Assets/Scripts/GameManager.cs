@@ -21,7 +21,7 @@ public struct CanPlayer
 
 
 public class GameManager : MonoBehaviour
-{  
+{
     public static bool isGamePaused = false;
 
     //PLAYER VARIABLES
@@ -42,6 +42,10 @@ public class GameManager : MonoBehaviour
     public static bool canPause = true;
     public static bool canCamera = true;
 
+    //ITEM VARIABLES
+    public static bool canUseTomKey;
+    public static bool canUseScroll;
+
     public static void ResetVariables()
     {
         canPlayer.walk = true;
@@ -55,24 +59,43 @@ public class GameManager : MonoBehaviour
 
         foundEvidence = 0;
 
-     // Keep this commented for now until applicable
-     // ItemIndex.ResetKeyItems();  
+        // Keep this commented for now until applicable
+        // ItemIndex.ResetKeyItems();  
 
         Debug.Log("Variables Reset");
     }
 
+    public static void DisablePlayer()
+    {
 
-    /* For testing progress bar -Damian
-        void Start()
-        {
-            foundEvidence = 3;
-            progressBar.SetProgress(foundEvidence);
-        }
-    */
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        canPlayer.walk = false;
+        canCamera = false;
+        canPlayer.jump = false;
+        canPause = false;
+
+
+    }
+
+    public static void EnablePlayer()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        canPlayer.walk = true;
+        canCamera = true;
+        canPlayer.jump = true;
+        canPause = true;
+    }
+
 
     public void Start()
     {
-       
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
     }
 
 }

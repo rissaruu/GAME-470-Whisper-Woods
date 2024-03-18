@@ -40,7 +40,6 @@ public class Pause : MonoBehaviour
         GameManager.canPlayer.run = false;
         GameManager.canPlayer.jump = false;
         GameManager.canPlayer.rotate = false;
-        //   Time.timeScale = 0f;
         notebook.SetActive(true); 
     }
 
@@ -54,7 +53,6 @@ public class Pause : MonoBehaviour
         GameManager.canPlayer.run = true;
         GameManager.canPlayer.jump = true;
         GameManager.canPlayer.rotate = true;
-      //  Time.timeScale = 1f;
         notebook.SetActive(false);
     }
 }
