@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions.FindAction("Move");
         rotateCameraAction = playerInput.actions.FindAction("RotateCamera"); // Initialize rotateCameraAction
@@ -40,6 +42,28 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
             // Move the player
             transform.position += transform.TransformDirection(movementDirection) * GameManager.playerWalkSpeed * Time.deltaTime;
 
+
+        /*
+        Vector3 cameraForward = mainCamera.transform.forward;
+        Vector3 cameraRight = mainCamera.transform.right;
+
+        cameraForward.y = 0f;
+        cameraRight.y = 0f;
+
+        cameraForward.Normalize();
+        cameraRight.Normalize();
+
+        Vector3 movementDirection = cameraForward * direction.y + cameraRight * direction.x;
+        movementDirection.Normalize();
+
+        transform.position += movementDirection * GameManager.playerWalkSpeed * Time.deltaTime;
+
+        if (movementDirection != Vector3.zero && direction.y != -1f && GameManager.canPlayer.rotate)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * GameManager.rotationSpeed);
+        }
+        */
 
     }
 
@@ -76,16 +100,6 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
         GameManager.canPlayer.jump = true;
     }
 
-    /* placeholder pseudocode for vaulting parkour
-       public void Vault()
-    {
-        if ( colliding with tag "vault" && GameManager.IsPlayerJumping)
-        {
-         move the player across object and call animation
-        }
-    }
-
-    */
     public void LoadData(GameData data)
     {
         this.transform.position = data.playerPosition;

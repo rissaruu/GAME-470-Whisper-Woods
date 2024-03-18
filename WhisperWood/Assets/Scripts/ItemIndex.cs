@@ -7,26 +7,8 @@ public class ItemIndex : MonoBehaviour
     public static bool[] keyItems; // Array to store whether each key item is found
     public Dictionary<string, int> codenameToIndex; // Dictionary to map codenames to indices
 
-
-    public Dictionary<string, int> inventoryItems;
-    public int itemIndex;
-    
-
     // Singleton pattern to ensure only one instance of the InventoryManager exists
     public static ItemIndex instance;
-
-    private void Start()
-    {
-        inventoryItems = new Dictionary<string, int>();
-        itemIndex = 0;
-    }
-
-    public void AddItemToInventory(string itemName)
-    {
-        inventoryItems.Add(itemName, itemIndex);
-        itemIndex++;
-        GameManager.foundEvidence++;
-    }
 
     void Awake()
     {
@@ -36,14 +18,14 @@ public class ItemIndex : MonoBehaviour
             keyItems = new bool[GameManager.totalEvidence]; // Initialize the array size based on totalEvidence
 
             // Initialize the dictionary
-            //codenameToIndex = new Dictionary<string, int>();
-            //codenameToIndex.Add("TomKey", 0);
-            //codenameToIndex.Add("PaintingPiece", 1);
-            //codenameToIndex.Add("DroranAd", 2);
-            //codenameToIndex.Add("Scroll", 3);
-            //codenameToIndex.Add("PlayingCard", 4);
-            //codenameToIndex.Add("OwnerKey", 5);
-            //codenameToIndex.Add("Wallet", 6);
+            codenameToIndex = new Dictionary<string, int>();
+            codenameToIndex.Add("TomKey", 0);
+            codenameToIndex.Add("PaintingPiece", 1);
+            codenameToIndex.Add("DroranAd", 2);
+            codenameToIndex.Add("Scroll", 3);
+            codenameToIndex.Add("PlayingCard", 4);
+            codenameToIndex.Add("OwnerKey", 5);
+            codenameToIndex.Add("Wallet", 6);
         }
         else
         {
