@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Beetlemast
   - Tom
+  - LuggageKey
+  - Scroll
+  - PaintingPiece
+  - PlayingCard
   layers:
   - Default
   - TransparentFX

@@ -48,13 +48,8 @@ public class DialogueManager : MonoBehaviour
     public void DialogueStart(List<DialogueString> textToPrint, Transform NPC, GameObject character)
     {
         dialogueParent.SetActive(true);
-        GameManager.canCamera = false;
-        GameManager.canPause = false;
-        GameManager.canPlayer.walk = false;
-        GameManager.canPlayer.rotate = false;
-        GameManager.canPlayer.jump = false;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        GameManager.DisablePlayer();
+
         nameTextBox.enabled = true;
         nameBox.SetActive(true);
 
@@ -214,14 +209,15 @@ public class DialogueManager : MonoBehaviour
         dialogueText.text = "";
         dialogueParent.SetActive(false);
 
-        //enable player here
-        GameManager.canPlayer.walk = true;
-        GameManager.canPlayer.rotate = true;
-        GameManager.canPlayer.jump = true;
-        GameManager.canPause = true;
-        GameManager.canCamera = true;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        ////enable player here
+        //GameManager.canPlayer.walk = true;
+        //GameManager.canPlayer.rotate = true;
+        //GameManager.canPlayer.jump = true;
+        //GameManager.canPause = true;
+        //GameManager.canCamera = true;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        GameManager.EnablePlayer();
         centerPoint.SetActive(true);
         characterCard.enabled = false;
         nameTextBox.enabled = false;

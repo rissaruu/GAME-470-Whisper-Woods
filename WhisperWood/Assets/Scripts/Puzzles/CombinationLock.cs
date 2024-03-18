@@ -59,12 +59,13 @@ public class CombinationLock : MonoBehaviour
         if (!solvedCombination)
         {
             LockUI.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            //Cursor.lockState = CursorLockMode.None;
+            //Cursor.visible = true;
 
-            GameManager.canPlayer.walk = false;
-            GameManager.canPlayer.rotate = false;
-            GameManager.canPlayer.jump = false;
+            //GameManager.canPlayer.walk = false;
+            //GameManager.canPlayer.rotate = false;
+            //GameManager.canPlayer.jump = false;
+            GameManager.DisablePlayer();
         }
 
     }
@@ -72,11 +73,12 @@ public class CombinationLock : MonoBehaviour
     public void CloseLuggageUI()
     {
         LockUI.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        GameManager.canPlayer.walk = true;
-        GameManager.canPlayer.rotate = true;
-        GameManager.canPlayer.jump = true;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        //GameManager.canPlayer.walk = true;
+        //GameManager.canPlayer.rotate = true;
+        //GameManager.canPlayer.jump = true;
+        GameManager.EnablePlayer();
     }
 
     private void ChangeNumber(TMP_Text numberText, bool isUp)
