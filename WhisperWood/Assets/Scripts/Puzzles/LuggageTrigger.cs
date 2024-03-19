@@ -6,7 +6,7 @@ public class LuggageTrigger : MonoBehaviour
 {
 
     private bool canTrigger;
-    private bool isTryingCombination;
+    private bool isTouchingLuggage;
 
     public CombinationLock CombinationLock;
 
@@ -17,6 +17,7 @@ public class LuggageTrigger : MonoBehaviour
         if (other.CompareTag("Player"))//&& !hasSpoken)
         {
             canTrigger = true;
+            isTouchingLuggage = true;
         }
     }
     private void OnTriggerExit(Collider other)
@@ -24,6 +25,7 @@ public class LuggageTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             canTrigger = false;
+            isTouchingLuggage = false;
 
         }
     }
@@ -31,19 +33,18 @@ public class LuggageTrigger : MonoBehaviour
     private void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.E) && LockUI.activeInHierarchy)
+        if (Input.GetKeyDown(KeyCode.E) && LockUI.activeInHierarchy && isTouchingLuggage)
         {
             CombinationLock.CloseLuggageUI();
             canTrigger = false;
-            GameManager.canCamera = true;
+            //GameManager.canCamera = true;
         }
 
         if (canTrigger && Input.GetKeyDown(KeyCode.E))
         {
             CombinationLock.OpenLuggageUI();
             canTrigger = false;
-            isTryingCombination = true;
-            GameManager.canCamera = false;
+            //GameManager.canCamera = false;
 
         }
 
