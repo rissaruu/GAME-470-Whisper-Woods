@@ -10,6 +10,7 @@ public class Interactable : MonoBehaviour
     [SerializeField] private Transform centerDotTransform;
     [SerializeField] private Transform offsetTransform;
     [SerializeField] private LayerMask pickupLayerMask;
+    [SerializeField] private TextMeshProUGUI textToPlayer;
 
     private ObjectInteract objectInteractable;
     public ItemIndex ItemIndex;
@@ -35,14 +36,16 @@ public class Interactable : MonoBehaviour
     public bool addedPaintingPiece;
     public bool addedPlayingCard;
     public bool addedScroll;
-    
-    
+
+    //Trying to use
+    public bool tryingToUseKey;
 
     private void Start()
     {
         addToInventoryButton.SetActive(false);
         interactableImage.gameObject.SetActive(false);
         inventoryUI.SetActive(false);
+        textToPlayer.GetComponent<TextMeshProUGUI>().text = "";
         slotButtons = new List<Button>();
         slotButtons.Add(slot1Button);
         slotButtons.Add(slot2Button);
@@ -69,6 +72,11 @@ public class Interactable : MonoBehaviour
         {
             //Check if the key can be used via GameManager
 
+        }
+
+        if (Item == paintingPieceImage)
+        {
+            tryingToUseKey = true;
         }
         useButton.gameObject.SetActive(false);  
     }
@@ -97,8 +105,6 @@ public class Interactable : MonoBehaviour
                     //Debug.Log(raycastHit.transform);
                     if (raycastHit.transform.TryGetComponent(out objectInteractable))
                     {
-                        //objectInteractable.Grab(offsetTransform);
-                        Debug.Log(objectInteractable);
                         GameManager.DisablePlayer();
 
                         interactableImage.gameObject.SetActive(true);
@@ -144,6 +150,13 @@ public class Interactable : MonoBehaviour
 
 
     }
+
+    //IEnumerator WaitForText()
+    //{
+    //    yield return new WaitForSeconds(.8f);
+    //    textToPlayer.GetComponent<TextMeshProUGUI>().text = "";
+    //    GameManager.EnablePlayer();
+    //}
 
     private void AddInteractableObjectImage(GameObject interactableObject) //Before you press the button to add to inventory (allows for exiting out)
     {
