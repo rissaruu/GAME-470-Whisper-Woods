@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class CombinationLock : MonoBehaviour
 {
@@ -34,9 +35,11 @@ public class CombinationLock : MonoBehaviour
     private bool solvedDrawerCombination;
 
     [SerializeField] private GameObject luggageTopPiece;
+    [SerializeField] private GameObject luggageBottomPiece;
+    [SerializeField] private GameObject luggageTrigger;
     [SerializeField] private GameObject duplicateKey;
-
-
+    [SerializeField] private GameObject movingDrawer;
+    [SerializeField] private GameObject drawerTrigger;
     private void Start()
     {
         luggageCombination = new List<int>();
@@ -47,11 +50,15 @@ public class CombinationLock : MonoBehaviour
         comparisonList = new List<int>();
         duplicateKey.SetActive(false);
 
+
+
+
         luggageCombination.Add(3);
         luggageCombination.Add(8);
         luggageCombination.Add(2);
         luggageCombination.Add(4);
 
+        //Real code is 7390
         drawerCombination.Add(1);
         drawerCombination.Add(2);
         drawerCombination.Add(3);
@@ -164,13 +171,29 @@ public class CombinationLock : MonoBehaviour
                 luggageTopPiece.transform.eulerAngles += new Vector3(0, 0, -34f);
                 duplicateKey.SetActive(true);
                 ResetNums();
+
+                luggageTopPiece.GetComponent<MeshCollider>().enabled = false;
+                luggageBottomPiece.GetComponent<MeshCollider>().enabled = false;
+                luggageTrigger.GetComponent<BoxCollider>().enabled = false;
+                
                 //GameManager.canCamera = true;
             }
             if (correctCombination == drawerCombination)
             {
                 solvedDrawerCombination = true;
                 ResetNums();
+                //movingDrawer.transform.position = Vector3.Lerp(movingDrawer.transform.position, endingDrawerPosition.position, 3f);
                 //other stuff
+
+
+                //Method that opens instantly
+
+                Vector3 movement = Vector3.right * 1f;
+
+                movingDrawer.transform.Translate(movement);
+
+                movingDrawer.GetComponent<BoxCollider>().enabled = false;
+                drawerTrigger.GetComponent<BoxCollider>().enabled = false;
             }
 
 

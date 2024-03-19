@@ -32,15 +32,15 @@ public class PaintingTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (canTrigger && Interactable.tryingToUseKey) //needs another condition (the use button)
+        if (canTrigger && Interactable.tryingToUsePaintingPiece) //needs another condition (the use button)
         {
             //Code for swapping paintings
             incompletePicture.SetActive(false);
             completedPicture.SetActive(true);
         }
-        if (!canTrigger && Interactable.tryingToUseKey)
+        if (!canTrigger && Interactable.tryingToUsePaintingPiece)
         {
-            Interactable.tryingToUseKey = false;
+            Interactable.tryingToUsePaintingPiece = false;
         }
     }
 }

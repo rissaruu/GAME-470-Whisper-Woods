@@ -23,12 +23,14 @@ public class Interactable : MonoBehaviour
     public Sprite paintingPieceImage;
     public Sprite playingCardImage;
     public Sprite scrollImage;
+    public Sprite DroranAdImage;
 
     public GameObject inventoryUI;
     public Button useButton;
     public Button slot1Button;
     public Button slot2Button;
     public Button slot3Button;  
+    public Button slot4Button;
 
     public List<Button> slotButtons;
 
@@ -36,9 +38,10 @@ public class Interactable : MonoBehaviour
     public bool addedPaintingPiece;
     public bool addedPlayingCard;
     public bool addedScroll;
+    public bool addedDroranAd;
 
     //Trying to use
-    public bool tryingToUseKey;
+    public bool tryingToUsePaintingPiece;
 
     private void Start()
     {
@@ -50,6 +53,7 @@ public class Interactable : MonoBehaviour
         slotButtons.Add(slot1Button);
         slotButtons.Add(slot2Button);
         slotButtons.Add(slot3Button);
+        slotButtons.Add(slot4Button);
 
         foreach (Button slotButton in slotButtons)
         {
@@ -71,12 +75,12 @@ public class Interactable : MonoBehaviour
         if (Item == keyImage)
         {
             //Check if the key can be used via GameManager
-
+            
         }
 
         if (Item == paintingPieceImage)
         {
-            tryingToUseKey = true;
+            tryingToUsePaintingPiece = true;
         }
         useButton.gameObject.SetActive(false);  
     }
@@ -160,6 +164,7 @@ public class Interactable : MonoBehaviour
 
     private void AddInteractableObjectImage(GameObject interactableObject) //Before you press the button to add to inventory (allows for exiting out)
     {
+        Debug.Log("TAG: " + interactableObject.tag);
         if (interactableObject.CompareTag("LuggageKey"))
         {
             interactableImage.sprite = keyImage;
@@ -175,6 +180,11 @@ public class Interactable : MonoBehaviour
         if (interactableObject.CompareTag("Scroll"))
         {
             interactableImage.sprite = scrollImage;
+        }
+        if (interactableObject.CompareTag("DroranAd"))
+        {
+            Debug.Log("ad");
+            interactableImage.sprite = DroranAdImage;
         }
 
     }
@@ -197,7 +207,10 @@ public class Interactable : MonoBehaviour
         {
             ItemIndex.AddItemToInventory("Scroll");
         }
-
+        if (interactableObject.CompareTag("DroranAd"))
+        {
+            ItemIndex.AddItemToInventory("DroranAd");
+        }
     }
 
     private void SetInventory()
@@ -235,6 +248,13 @@ public class Interactable : MonoBehaviour
                     slotButton.enabled = true;
                     slotButton.GetComponent<Image>().sprite = scrollImage;
                     addedScroll = true;
+                }
+                if (ItemIndex.inventoryItems.ContainsKey("DroranAd") && !addedDroranAd)
+                {
+                    slotButton.gameObject.SetActive(true);
+                    slotButton.enabled = true;
+                    slotButton.GetComponent<Image>().sprite = DroranAdImage;
+                    addedDroranAd = true;
                 }
 
             }

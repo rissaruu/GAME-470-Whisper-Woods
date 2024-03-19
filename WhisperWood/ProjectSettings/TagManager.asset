@@ -10,6 +10,7 @@ TagManager:
   - Scroll
   - PaintingPiece
   - PlayingCard
+  - DroranAd
   layers:
   - Default
   - TransparentFX
