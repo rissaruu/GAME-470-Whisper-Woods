@@ -11,6 +11,7 @@ TagManager:
   - PaintingPiece
   - PlayingCard
   - DroranAd
+  - Combination
   layers:
   - Default
   - TransparentFX
