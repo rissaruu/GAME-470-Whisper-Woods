@@ -172,19 +172,11 @@ public class CombinationLock : MonoBehaviour
                 duplicateKey.SetActive(true);
                 ResetNums();
 
-                luggageTopPiece.GetComponent<MeshCollider>().enabled = false;
-                luggageBottomPiece.GetComponent<MeshCollider>().enabled = false;
-                luggageTrigger.GetComponent<BoxCollider>().enabled = false;
-                
-                //GameManager.canCamera = true;
             }
             if (correctCombination == drawerCombination)
             {
                 solvedDrawerCombination = true;
                 ResetNums();
-                //movingDrawer.transform.position = Vector3.Lerp(movingDrawer.transform.position, endingDrawerPosition.position, 3f);
-                //other stuff
-
 
                 //Method that opens instantly
 
@@ -192,8 +184,6 @@ public class CombinationLock : MonoBehaviour
 
                 movingDrawer.transform.Translate(movement);
 
-                movingDrawer.GetComponent<BoxCollider>().enabled = false;
-                drawerTrigger.GetComponent<BoxCollider>().enabled = false;
             }
 
 

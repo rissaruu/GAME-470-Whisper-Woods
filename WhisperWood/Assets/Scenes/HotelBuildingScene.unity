@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2824,7 +2824,7 @@ RectTransform:
   m_GameObject: {fileID: 110683484}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.1010501, y: 4.404766, z: 3.1010501}
+  m_LocalScale: {x: 3.9234488, y: 5.5729103, z: 3.9234488}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 135639675}
@@ -2834,7 +2834,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -591, y: -426}
+  m_AnchoredPosition: {x: -629, y: -447}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &110683486
@@ -21869,6 +21869,240 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 00fa8af1181db0348809418e0f66f704, type: 3}
   m_PrefabInstance: {fileID: 800605764}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &803475683
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 803475684}
+  - component: {fileID: 803475688}
+  - component: {fileID: 803475687}
+  - component: {fileID: 803475686}
+  - component: {fileID: 803475685}
+  m_Layer: 0
+  m_Name: CoralDialogueTrigger1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &803475684
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803475683}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0185, z: 0.016}
+  m_LocalScale: {x: 0.04699658, y: 0.014705882, z: 0.031200109}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1233059775}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &803475685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803475683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 980f009c58d9e8b408ac4e352bc4dbb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueStrings:
+  - npcDialogue: "Who are you? You certainly don\u2019t look like you belong here."
+    isEnd: 0
+    isQuestion: 1
+    branchBackToMain: 0
+    oneOption: 0
+    answerOption1: "I\u2019m just a small time detective trying to figure out exactly
+      what happened here."
+    answerOption2: "Considering the chalk outline on the floor, you\u2019re not the
+      brightest, are you?"
+    option1IndexJump: 1
+    option2IndexJump: 4
+    option3IndexJump: 0
+    startDialogueEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    endDialogueEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - npcDialogue: "Well I certainly don\u2019t know. I normally would never stay in
+      a dump such as this, but I\u2019m in town to visit my son."
+    isEnd: 0
+    isQuestion: 1
+    branchBackToMain: 0
+    oneOption: 1
+    answerOption1: For my records, could I have your name please?
+    answerOption2: 
+    option1IndexJump: 2
+    option2IndexJump: 0
+    option3IndexJump: 0
+    startDialogueEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    endDialogueEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - npcDialogue: "Coral Beaumont. Heiress to the Beaumont Fortune. I\u2019d like
+      to resume drinking away my sorrows if that\u2019s okay with you."
+    isEnd: 0
+    isQuestion: 0
+    branchBackToMain: 0
+    oneOption: 0
+    answerOption1: 
+    answerOption2: 
+    option1IndexJump: 0
+    option2IndexJump: 0
+    option3IndexJump: 0
+    startDialogueEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    endDialogueEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - npcDialogue: "I won\u2019t be much help with the case I can promise you that."
+    isEnd: 1
+    isQuestion: 0
+    branchBackToMain: 0
+    oneOption: 0
+    answerOption1: 
+    answerOption2: 
+    option1IndexJump: 0
+    option2IndexJump: 0
+    option3IndexJump: 0
+    startDialogueEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    endDialogueEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - npcDialogue: "The tone you\u2019re taking with me is awfully inappropriate. I\u2019m
+      not even involved with this whole fiasco. Go bother someone else with this
+      drivel."
+    isEnd: 0
+    isQuestion: 1
+    branchBackToMain: 0
+    oneOption: 1
+    answerOption1: "Actually I\u2019m going to need your name and reason for staying
+      at this hotel.You\u2019re now a suspect in this crime."
+    answerOption2: 
+    option1IndexJump: 5
+    option2IndexJump: 0
+    option3IndexJump: 0
+    startDialogueEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    endDialogueEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - npcDialogue: "Well my word. My name is Coral, and I\u2019ll have you know I\u2019m
+      the heiress to the Beaumont fortune.I\u2019m only in this town to visit my
+      son."
+    isEnd: 0
+    isQuestion: 0
+    branchBackToMain: 0
+    oneOption: 0
+    answerOption1: 
+    answerOption2: 
+    option1IndexJump: 0
+    option2IndexJump: 0
+    option3IndexJump: 0
+    startDialogueEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    endDialogueEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - npcDialogue: "Now listen here\u2026 I don\u2019t have any information to give
+      you. Please leave me to drink away my sorrows in peace."
+    isEnd: 1
+    isQuestion: 0
+    branchBackToMain: 0
+    oneOption: 0
+    answerOption1: 
+    answerOption2: 
+    option1IndexJump: 0
+    option2IndexJump: 0
+    option3IndexJump: 0
+    startDialogueEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    endDialogueEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  NPCTransform: {fileID: 0}
+--- !u!65 &803475686
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803475683}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &803475687
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803475683}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &803475688
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803475683}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &805286346
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22120,6 +22354,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 829e0bf1b0099f94b961b785f5e1a4ab, type: 3}
       propertyPath: m_Name
       value: InteractableKey
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 829e0bf1b0099f94b961b785f5e1a4ab, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 829e0bf1b0099f94b961b785f5e1a4ab, type: 3}
       propertyPath: m_TagString
@@ -23470,7 +23708,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 875550210}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1.13, z: 3.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -37853,7 +38091,7 @@ BoxCollider:
   m_GameObject: {fileID: 1202585586}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.022592083, y: 0.036248043, z: 0.088509}
   m_Center: {x: 0.0005035066, y: 0.0016820487, z: -0.0009287095}
@@ -39207,7 +39445,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 4.7632446}
+  m_AnchoredPosition: {x: 0, y: -0.5000241}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1412745444
@@ -39257,8 +39495,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
-  m_fontSizeBase: 10
+  m_fontSize: 8
+  m_fontSizeBase: 8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -49519,7 +49757,7 @@ RectTransform:
   m_GameObject: {fileID: 1777828146}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.1010501, y: 4.404766, z: 3.1010501}
+  m_LocalScale: {x: 3.9234488, y: 5.5729103, z: 3.9234488}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1819041266}
@@ -49529,7 +49767,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -72, y: -426}
+  m_AnchoredPosition: {x: 27.629995, y: -447}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1777828148
@@ -56892,7 +57130,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 4.7632675}
+  m_AnchoredPosition: {x: 0, y: -0.5}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2056521236
@@ -56942,8 +57180,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
-  m_fontSizeBase: 10
+  m_fontSize: 8
+  m_fontSizeBase: 8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
