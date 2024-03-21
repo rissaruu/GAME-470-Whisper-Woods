@@ -65,14 +65,25 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
     {
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
         rb.AddForce(Vector3.up * GameManager.playerJumpForce, ForceMode.Impulse);
-        StartCoroutine(CanJumpAgain());
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if ((GameManager.isPlayer.jumping)
+            && Vector3.Dot(collision.contacts[0].normal, Vector3.up) > 0.9f) //makes sure can't jump on walls
+          //&& Not colliding with tag vault 
+        {
+            StartCoroutine(CanJumpAgain());
+        }
+      //elseif(All the other stuff except player is colliding with tag vault)
+      //{Timer += Time.Deltatime; if Timer >= 3f;{StartCoroutine(CanJumpAgain());}}
     }
 
     IEnumerator CanJumpAgain()
     {
         GameManager.canPlayer.jump = false;
-        yield return new WaitForSeconds(1f);
         GameManager.isPlayer.jumping = false;
+        yield return new WaitForSeconds(1f);
         GameManager.canPlayer.jump = true;
     }
 
