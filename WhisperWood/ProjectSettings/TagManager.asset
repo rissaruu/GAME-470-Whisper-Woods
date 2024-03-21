@@ -11,6 +11,7 @@ TagManager:
   - PaintingPiece
   - PlayingCard
   - DroranAd
+  - Combination
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Water
   - UI
   - Player
-  - 
+  - Interactable
   - 
   - 
   - 
