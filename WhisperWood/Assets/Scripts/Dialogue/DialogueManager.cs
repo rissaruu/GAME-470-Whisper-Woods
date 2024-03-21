@@ -23,14 +23,23 @@ public class DialogueManager : MonoBehaviour
 
     private int currentDialogueIndex = 0;
 
-    public Image characterCard;
+    public GameObject characterCard;
     public TMP_Text nameTextBox;
     public GameObject nameBox;
 
+    [SerializeField] private Sprite CoralImage;
+    [SerializeField] private Sprite BeetlemastImage;
+
     //Bools for checking pace of dialogue
-    private bool IsBeginnerDialogueComplete;
+    private bool IsBeetlemastBeginnerDialogueComplete;
+    private bool IsCoralBeginnerDialogueComplete;
+
+    private bool shouldRandomBeginnerCoralDialogue;
 
     public GameObject BeetlemastTrigger2;
+    public GameObject CoralTrigger2;
+
+    public GameObject CoralRandomizedTrigger1;
 
 
     private void Start()
@@ -39,15 +48,18 @@ public class DialogueManager : MonoBehaviour
         //playerCamera = Camera.main.transform;
         option1Button.gameObject.SetActive(false);
         option2Button.gameObject.SetActive(false);
-        characterCard.enabled = false;
+        characterCard.SetActive(false);
         nameTextBox.enabled = false;
         nameBox.SetActive(false);
         BeetlemastTrigger2.SetActive(false);
+        CoralTrigger2.SetActive(false);
+        CoralRandomizedTrigger1.SetActive(false);
     }
 
     public void DialogueStart(List<DialogueString> textToPrint, Transform NPC, GameObject character)
     {
         dialogueParent.SetActive(true);
+        currentDialogueIndex = 0;
         GameManager.DisablePlayer();
 
         nameTextBox.enabled = true;
@@ -55,12 +67,13 @@ public class DialogueManager : MonoBehaviour
 
         if (character.CompareTag("Beetlemast"))
         {
-            characterCard.enabled = true;
+            characterCard.SetActive(true);
+            characterCard.GetComponent<Image>().sprite = BeetlemastImage;
             nameTextBox.GetComponent<TextMeshProUGUI>().text = "Beetlemast";
             if (character.name == "BeetleDialogueTrigger1")
             {
                 character.SetActive(false);
-                IsBeginnerDialogueComplete = true;
+                IsBeetlemastBeginnerDialogueComplete = true;
             }
 
             
@@ -71,11 +84,31 @@ public class DialogueManager : MonoBehaviour
             nameTextBox.GetComponent<TextMeshProUGUI>().text = "Tim";
         }
 
+        if (character.CompareTag("Coral"))
+        {
+            characterCard.SetActive(true);
+            characterCard.GetComponent<Image>().sprite = CoralImage;
+            nameTextBox.GetComponent<TextMeshProUGUI>().text = "Coral";
+            if (character.name == "CoralDialogueTrigger1") //this will have to be changed later to if the player has spoken to elmor or not
+            {
+                character.SetActive(false);
+                IsCoralBeginnerDialogueComplete = true;
+            }
+            if (character.name == "CoralDialogueTrigger2") //this logic is not in correct order!!
+            {
+                Debug.Log("setting inactive");
+                character.SetActive(false);
+                shouldRandomBeginnerCoralDialogue = true;
+            }
+            if (character.name == "CoralRandomizedDialogueTrigger1")
+            {
+                currentDialogueIndex = Random.Range(0, 3);
+            }
+        }
+
         //StartCoroutine(TurnCameraTowardsNPC(NPC));
 
         dialogueList = textToPrint;
-        currentDialogueIndex = 0;
-
         CheckDialogueConditions();
         DisableButtons();
         centerPoint.SetActive(false);
@@ -85,10 +118,24 @@ public class DialogueManager : MonoBehaviour
 
     private void CheckDialogueConditions()
     {
-        if (IsBeginnerDialogueComplete)
+        if (IsBeetlemastBeginnerDialogueComplete)
         {
             BeetlemastTrigger2.SetActive(true);
         }
+
+        if (IsCoralBeginnerDialogueComplete) //may be called something else instead of coral beginner dialogue complete (may be called isCoralPuzzleTime)
+        {
+            CoralTrigger2.SetActive(true);
+            IsCoralBeginnerDialogueComplete = false;
+        }
+
+        if (shouldRandomBeginnerCoralDialogue)
+        {
+            CoralRandomizedTrigger1.SetActive(true);
+               
+        }
+
+
     }
 
     private void DisableButtons()
@@ -118,6 +165,7 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator PrintDialogue()
     {
+        Debug.Log("Index: " + currentDialogueIndex);
         while(currentDialogueIndex < dialogueList.Count)
         {
             DialogueString line = dialogueList[currentDialogueIndex];
@@ -219,7 +267,7 @@ public class DialogueManager : MonoBehaviour
         //Cursor.visible = false;
         GameManager.EnablePlayer();
         centerPoint.SetActive(true);
-        characterCard.enabled = false;
+        characterCard.SetActive(false);
         nameTextBox.enabled = false;
         nameBox.SetActive(false);
 

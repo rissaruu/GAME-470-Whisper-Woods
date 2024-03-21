@@ -12,6 +12,7 @@ TagManager:
   - PlayingCard
   - DroranAd
   - Combination
+  - Coral
   layers:
   - Default
   - TransparentFX
