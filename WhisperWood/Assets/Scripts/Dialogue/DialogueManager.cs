@@ -34,12 +34,17 @@ public class DialogueManager : MonoBehaviour
     //TOM
     [SerializeField] private GameObject TomTrigger2;
     [SerializeField] private GameObject TomTrigger3;
+    [SerializeField] private GameObject TomTrigger4;
     private bool shouldTomDialogue2;
     private bool shouldTomDialogue3;
+    private bool shouldTomDialogue4;
 
     //BEETLEMAST
     [SerializeField] private GameObject BeetlemastTrigger2;
     private bool shouldBeetlemastDialogue2;
+
+    //ELMORE
+    public GameObject ElmoreTrigger2;
 
     //CORAL
     [SerializeField] private GameObject CoralTrigger2;
@@ -60,6 +65,7 @@ public class DialogueManager : MonoBehaviour
         nameBox.SetActive(false);
         TomTrigger2.SetActive(false);
         TomTrigger3.SetActive(false);
+        TomTrigger4.SetActive(false);
         BeetlemastTrigger2.SetActive(false);
         CoralTrigger2.SetActive(false);
         CoralRandomizedTrigger1.SetActive(false);
@@ -101,6 +107,11 @@ public class DialogueManager : MonoBehaviour
             {
                 character.SetActive(false);
                 shouldTomDialogue3 = true;
+            }
+            if (character.name == "TomDialogueTrigger3")
+            {
+                character.SetActive(false);
+                shouldTomDialogue4 = true;
             }
         }
 
@@ -153,6 +164,13 @@ public class DialogueManager : MonoBehaviour
         if (shouldTomDialogue3)
         {
             TomTrigger3.SetActive(true);
+            shouldTomDialogue3 = false;
+        }
+
+        if (shouldTomDialogue4)
+        {
+            TomTrigger4.SetActive(true);
+            //shouldTomDialogue4 = false;
         }
 
         if (shouldBeetlemastDialogue2)

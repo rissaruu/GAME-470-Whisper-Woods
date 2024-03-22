@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class DrawerTrigger : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class DrawerTrigger : MonoBehaviour
     public CombinationLock CombinationLock;
 
     [SerializeField] private GameObject LockUI;
+    [SerializeField] private TMP_Text pressEText;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,6 +20,11 @@ public class DrawerTrigger : MonoBehaviour
         {
             canTrigger = true;
             isTouchingDrawer = true;
+
+            if (!CombinationLock.solvedDrawerCombination)
+            {
+                pressEText.enabled = true;
+            }
         }
     }
     private void OnTriggerExit(Collider other)
@@ -25,6 +33,7 @@ public class DrawerTrigger : MonoBehaviour
         {
             canTrigger = false;
             isTouchingDrawer = false;
+            pressEText.enabled = false;
         }
     }
 
@@ -42,6 +51,7 @@ public class DrawerTrigger : MonoBehaviour
         {
             CombinationLock.OpenDrawerUI();
             canTrigger = false;
+            pressEText.enabled = false;
             //GameManager.canCamera = false;
 
         }

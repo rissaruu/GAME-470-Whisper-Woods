@@ -1,35 +1,64 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class DoorTrigger : MonoBehaviour
 {
     public bool doorClosed = true;
     private bool canTrigger;
     private bool isTouchingDoor;
+    private bool isTouchingLockedDoor;
     public float doorSpeed = 60f;
     public float doorTime = 1.6f;
+
+    [SerializeField] private TMP_Text pressEText;
+    [SerializeField] private TMP_Text lockedDoorText;
+
+    public Interactable Interactable;
+
+    private void Start()
+    {
+        pressEText.enabled = false;
+        lockedDoorText.enabled = false;
+    }
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))//&& !hasSpoken)
+        
+        //pressEText.GetComponent<TextMeshProUGUI>().text = "Press E to Interact";
+        if (other.CompareTag("Player"))
         {
             canTrigger = true;
-            isTouchingDoor = true;
+            if (gameObject.name != "LockedDoor")
+            {
+                pressEText.enabled = true;
+                isTouchingDoor = true;
+            }
+            if (gameObject.name == "LockedDoor")
+            {
+                pressEText.enabled = false;
+                isTouchingLockedDoor = true;
+            }
         }
+
     }
     private void OnTriggerExit(Collider other)
     {
+        pressEText.enabled = false;
         if (other.CompareTag("Player"))
         {
             canTrigger = false;
             isTouchingDoor = false;
+            isTouchingLockedDoor = false;
         }
     }
 
     public void Interaction()
     {
+        pressEText.enabled = false;
         Debug.Log("Door Interaction!");
         StartCoroutine(OnInteract());
     }
@@ -63,5 +92,27 @@ public class DoorTrigger : MonoBehaviour
         {
             Interaction();
         }
+        if (Input.GetKeyDown(KeyCode.E) && isTouchingLockedDoor)
+        {
+            lockedDoorText.enabled = true;
+            StartCoroutine(WaitForText());
+        }
+
+        if (canTrigger && isTouchingLockedDoor && Interactable.tryingToUseTomKey) //needs another condition (the use button)
+        {
+            Interaction();
+            gameObject.name = "Door";
+            isTouchingLockedDoor = false;
+        }
+        if (!canTrigger && Interactable.tryingToUseTomKey)
+        {
+            Interactable.tryingToUsePaintingPiece = false;
+        }
+    }
+
+    IEnumerator WaitForText()
+    {
+        yield return new WaitForSeconds(.4f);
+        lockedDoorText.enabled = false;
     }
 }

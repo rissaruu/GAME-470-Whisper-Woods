@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class LuggageTrigger : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class LuggageTrigger : MonoBehaviour
     public CombinationLock CombinationLock;
 
     [SerializeField] private GameObject LockUI;
+    [SerializeField] private TMP_Text pressEText;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -18,6 +21,11 @@ public class LuggageTrigger : MonoBehaviour
         {
             canTrigger = true;
             isTouchingLuggage = true;
+            if (!CombinationLock.solvedLuggageCombination)
+            {
+                pressEText.enabled = true;
+            }
+            
         }
     }
     private void OnTriggerExit(Collider other)
@@ -26,6 +34,7 @@ public class LuggageTrigger : MonoBehaviour
         {
             canTrigger = false;
             isTouchingLuggage = false;
+            pressEText.enabled = false;
 
         }
     }
@@ -44,6 +53,7 @@ public class LuggageTrigger : MonoBehaviour
         {
             CombinationLock.OpenLuggageUI();
             canTrigger = false;
+            pressEText.enabled = false;
             //GameManager.canCamera = false;
 
         }

@@ -14,6 +14,8 @@ public class CombinationLock : MonoBehaviour
     [SerializeField] private TMP_Text number3;
     [SerializeField] private TMP_Text number4;
 
+    
+
     private List<int> luggageCombination;
     private List<int> drawerCombination;
     private List<int> correctCombination;
@@ -31,8 +33,8 @@ public class CombinationLock : MonoBehaviour
     [SerializeField] private Button number4Up;
     [SerializeField] private Button number4Down;
 
-    private bool solvedLuggageCombination;
-    private bool solvedDrawerCombination;
+    public bool solvedLuggageCombination;
+    public bool solvedDrawerCombination;
 
     [SerializeField] private GameObject luggageTopPiece;
     [SerializeField] private GameObject luggageBottomPiece;

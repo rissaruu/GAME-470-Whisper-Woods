@@ -10,15 +10,18 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
     private PlayerInput playerInput;
     private InputAction moveAction;
     private InputAction rotateCameraAction; // New input action for camera rotation
+    private InputAction zoomCameraAction;
 
     public Rigidbody rb;
     public Camera mainCamera;
+
 
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions.FindAction("Move");
         rotateCameraAction = playerInput.actions.FindAction("RotateCamera"); // Initialize rotateCameraAction
+        zoomCameraAction = playerInput.actions.FindAction("Zoom");
 
         rb = GetComponent<Rigidbody>();
         GameManager.ResetVariables();
@@ -45,6 +48,7 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
 
     void Update()
     {
+
         if (GameManager.canPlayer.walk)
         {
             Move();

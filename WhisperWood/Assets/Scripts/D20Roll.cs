@@ -31,7 +31,7 @@ public class D20Roll : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.L)) // Check for input to roll the d20
         {
-            RollD20();
+            RollD20(false);
         }
         //above key pressed used for testing, in final version (or when a dialouge script is made) it should be activated by the dialouge option needing a dice roll
         if (!isRolling)
@@ -42,15 +42,15 @@ public class D20Roll : MonoBehaviour
 
     }
 
-    public void RollD20()
+    public void RollD20(bool isRigged)
     {
         if (!isRolling)
         {
-            StartCoroutine(RollAnimation());
+            StartCoroutine(RollAnimation(isRigged));
         }
     }
 
-    public IEnumerator RollAnimation()
+    public IEnumerator RollAnimation(bool isRigged)
     {
         d20Renderer.enabled = true;
 
@@ -61,6 +61,11 @@ public class D20Roll : MonoBehaviour
 
         // Generate a random number between 1 and 20
         result = Random.Range(1, 21);
+
+        if (isRigged)
+        {
+            result = Random.Range(1, 6);
+        }
 
         Debug.Log("Result: " + result);
 

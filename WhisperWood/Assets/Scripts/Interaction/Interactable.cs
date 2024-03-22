@@ -27,6 +27,7 @@ public class Interactable : MonoBehaviour
     public Sprite DroranAdImage;
 
     public GameObject inventoryUI;
+    [SerializeField] private Button inventoryButton;
     [SerializeField] private Button useButton;
     [SerializeField] private Button inspectButton;
     [SerializeField] private Button exitButton;
@@ -39,7 +40,7 @@ public class Interactable : MonoBehaviour
     public List<Button> slotButtons;
 
     public bool addedCombinationImage;
-    public bool addedKey;
+    public bool addedTomKey;
     public bool addedPaintingPiece;
     public bool addedPlayingCard;
     public bool addedScroll;
@@ -47,6 +48,8 @@ public class Interactable : MonoBehaviour
 
     //Trying to use
     public bool tryingToUsePaintingPiece;
+    public bool tryingToUseTomKey;
+    public bool tryingToUseScroll;
 
     private void Start()
     {
@@ -84,12 +87,18 @@ public class Interactable : MonoBehaviour
         if (Item == keyImage)
         {
             //Check if the key can be used via GameManager
+            tryingToUseTomKey = true;
             
         }
 
         if (Item == paintingPieceImage)
         {
             tryingToUsePaintingPiece = true;
+        }
+
+        if (Item == scrollImage)
+        {
+            tryingToUseScroll = true;
         }
         //useButton.gameObject.SetActive(false);  
     }
@@ -112,6 +121,7 @@ public class Interactable : MonoBehaviour
 
     public void OnInventoryButtonClick()
     {
+        Debug.Log("NAME: " + interactingObject.name);
         CheckInteractingObject(interactingObject);
         interactableImage.gameObject.SetActive(false);
         addToInventoryButton.SetActive(false);
@@ -122,7 +132,7 @@ public class Interactable : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && !GameManager.isGamePaused)
+        if (Input.GetKeyDown(KeyCode.E) /* Input.GetMouseButtonDown(0) */&& !GameManager.isGamePaused)
         {
             if (objectInteractable == null) //not carrying an object
             {
@@ -142,7 +152,8 @@ public class Interactable : MonoBehaviour
 
                         
                         AddInteractableObjectImage(interactingObject);
-                        
+                        //inventoryButton.onClick.AddListener(() => OnInventoryButtonClick());
+
                     }
 
                 }
@@ -239,12 +250,12 @@ public class Interactable : MonoBehaviour
                     slotButton.GetComponent<Image>().sprite = combinationImage;
                     addedCombinationImage = true;
                 }
-                else if (ItemIndex.inventoryItems.ContainsKey("LuggageKey") && !addedKey)
+                else if (ItemIndex.inventoryItems.ContainsKey("LuggageKey") && !addedTomKey)
                 {
                     slotButton.gameObject.SetActive(true);
                     slotButton.enabled = true;
                     slotButton.GetComponent<Image>().sprite = keyImage;
-                    addedKey = true;
+                    addedTomKey = true;
                 }
                 else if (ItemIndex.inventoryItems.ContainsKey("PaintingPiece") && !addedPaintingPiece)
                 {
