@@ -27,20 +27,27 @@ public class DialogueManager : MonoBehaviour
     public TMP_Text nameTextBox;
     public GameObject nameBox;
 
+    //IMAGES
     [SerializeField] private Sprite CoralImage;
     [SerializeField] private Sprite BeetlemastImage;
 
-    //Bools for checking pace of dialogue
-    private bool IsBeetlemastBeginnerDialogueComplete;
-    private bool IsCoralBeginnerDialogueComplete;
+    //TOM
+    [SerializeField] private GameObject TomTrigger2;
+    [SerializeField] private GameObject TomTrigger3;
+    private bool shouldTomDialogue2;
+    private bool shouldTomDialogue3;
 
+    //BEETLEMAST
+    [SerializeField] private GameObject BeetlemastTrigger2;
+    private bool shouldBeetlemastDialogue2;
+
+    //CORAL
+    [SerializeField] private GameObject CoralTrigger2;
+    [SerializeField] private GameObject CoralRandomizedTrigger1;
+    [SerializeField] private GameObject CoralRandomizedTrigger2;
+    private bool shouldCoralDialogue2;
     private bool shouldRandomBeginnerCoralDialogue;
-
-    public GameObject BeetlemastTrigger2;
-    public GameObject CoralTrigger2;
-
-    public GameObject CoralRandomizedTrigger1;
-
+    private bool shouldRandomEndCoralDialogue;
 
     private void Start()
     {
@@ -51,9 +58,12 @@ public class DialogueManager : MonoBehaviour
         characterCard.SetActive(false);
         nameTextBox.enabled = false;
         nameBox.SetActive(false);
+        TomTrigger2.SetActive(false);
+        TomTrigger3.SetActive(false);
         BeetlemastTrigger2.SetActive(false);
         CoralTrigger2.SetActive(false);
         CoralRandomizedTrigger1.SetActive(false);
+        CoralRandomizedTrigger2.SetActive(false);
     }
 
     public void DialogueStart(List<DialogueString> textToPrint, Transform NPC, GameObject character)
@@ -73,7 +83,7 @@ public class DialogueManager : MonoBehaviour
             if (character.name == "BeetleDialogueTrigger1")
             {
                 character.SetActive(false);
-                IsBeetlemastBeginnerDialogueComplete = true;
+                shouldBeetlemastDialogue2 = true;
             }
 
             
@@ -82,6 +92,16 @@ public class DialogueManager : MonoBehaviour
         if (character.CompareTag("Tom"))
         {
             nameTextBox.GetComponent<TextMeshProUGUI>().text = "Tim";
+            if (character.name == "TomDialogueTrigger1")
+            {
+                character.SetActive(false);
+                shouldTomDialogue2 = true;
+            }
+            if (character.name == "TomDialogueTrigger2")
+            {
+                character.SetActive(false);
+                shouldTomDialogue3 = true;
+            }
         }
 
         if (character.CompareTag("Coral"))
@@ -92,7 +112,7 @@ public class DialogueManager : MonoBehaviour
             if (character.name == "CoralDialogueTrigger1") //this will have to be changed later to if the player has spoken to elmor or not
             {
                 character.SetActive(false);
-                IsCoralBeginnerDialogueComplete = true;
+                shouldCoralDialogue2 = true;
             }
             if (character.name == "CoralDialogueTrigger2") //this logic is not in correct order!!
             {
@@ -101,6 +121,12 @@ public class DialogueManager : MonoBehaviour
                 shouldRandomBeginnerCoralDialogue = true;
             }
             if (character.name == "CoralRandomizedDialogueTrigger1")
+            {
+                currentDialogueIndex = Random.Range(0, 3);
+                character.SetActive(false);
+                shouldRandomEndCoralDialogue = true;
+            }
+            if (character.name == "CoralRandomizedDialogueTrigger2")
             {
                 currentDialogueIndex = Random.Range(0, 3);
             }
@@ -118,21 +144,37 @@ public class DialogueManager : MonoBehaviour
 
     private void CheckDialogueConditions()
     {
-        if (IsBeetlemastBeginnerDialogueComplete)
+        if (shouldTomDialogue2)
+        {
+            TomTrigger2.SetActive(true);
+            shouldTomDialogue2 = false;
+        }
+
+        if (shouldTomDialogue3)
+        {
+            TomTrigger3.SetActive(true);
+        }
+
+        if (shouldBeetlemastDialogue2)
         {
             BeetlemastTrigger2.SetActive(true);
         }
 
-        if (IsCoralBeginnerDialogueComplete) //may be called something else instead of coral beginner dialogue complete (may be called isCoralPuzzleTime)
+        if (shouldCoralDialogue2) 
         {
             CoralTrigger2.SetActive(true);
-            IsCoralBeginnerDialogueComplete = false;
+            shouldCoralDialogue2 = false;
         }
 
         if (shouldRandomBeginnerCoralDialogue)
         {
             CoralRandomizedTrigger1.SetActive(true);
-               
+            shouldRandomBeginnerCoralDialogue = false;   
+        }
+
+        if (shouldRandomEndCoralDialogue)
+        {
+            CoralRandomizedTrigger2.SetActive(true);
         }
 
 
