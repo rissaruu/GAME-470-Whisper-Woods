@@ -66,6 +66,10 @@ public class D20Roll : MonoBehaviour
         {
             result = Random.Range(1, 6);
         }
+        if (!isRigged)
+        {
+            result = Random.Range(20, 21);
+        }
 
         Debug.Log("Result: " + result);
 

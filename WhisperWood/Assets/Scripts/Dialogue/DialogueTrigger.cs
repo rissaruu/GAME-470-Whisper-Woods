@@ -5,11 +5,13 @@ using UnityEngine.Events;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    [SerializeField] private List<DialogueString> dialogueStrings = new List<DialogueString>();
+    public List<DialogueString> dialogueStrings = new List<DialogueString>();
     [SerializeField] private Transform NPCTransform;
+    [SerializeField] GameObject player;
 
     private bool hasSpoken = false;
     private bool canTrigger;
+    public bool startDialogue;
 
     private GameObject collidedObject;
 
@@ -34,12 +36,18 @@ public class DialogueTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (canTrigger && Input.GetKeyDown(KeyCode.E))
+        if (canTrigger && Input.GetKeyDown(KeyCode.E) && !startDialogue)
         {
             collidedObject.GetComponent<DialogueManager>().DialogueStart(dialogueStrings, NPCTransform, gameObject);
             //hasSpoken = true;
             canTrigger = false;
 
+        }
+
+        if (startDialogue)
+        {
+            player.GetComponent<DialogueManager>().DialogueStart(dialogueStrings, NPCTransform, gameObject);
+            startDialogue = false;
         }
     }
 }

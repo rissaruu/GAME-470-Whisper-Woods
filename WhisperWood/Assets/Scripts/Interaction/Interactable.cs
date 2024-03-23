@@ -84,6 +84,8 @@ public class Interactable : MonoBehaviour
 
     public void OnUseButtonClick(Sprite Item)
     {
+        Debug.Log("ITEM: " + Item);
+
         if (Item == keyImage)
         {
             //Check if the key can be used via GameManager
@@ -93,6 +95,7 @@ public class Interactable : MonoBehaviour
 
         if (Item == paintingPieceImage)
         {
+            tryingToUseTomKey = false;
             tryingToUsePaintingPiece = true;
         }
 
@@ -185,6 +188,8 @@ public class Interactable : MonoBehaviour
             else
             {
                 inventoryUI.SetActive(false);
+                interactableImage.gameObject.SetActive(false);
+                exitButton.gameObject.SetActive(false);
                 GameManager.EnablePlayer();
             }
 
@@ -245,6 +250,7 @@ public class Interactable : MonoBehaviour
             {
                 if (ItemIndex.inventoryItems.ContainsKey("Combination") && !addedCombinationImage)
                 {
+                    Debug.Log("here");
                     slotButton.gameObject.SetActive(true);
                     slotButton.enabled = true;
                     slotButton.GetComponent<Image>().sprite = combinationImage;

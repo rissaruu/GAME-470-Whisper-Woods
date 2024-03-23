@@ -41,6 +41,7 @@ public class PaintingTrigger : MonoBehaviour
         if (!canTrigger && Interactable.tryingToUsePaintingPiece)
         {
             Interactable.tryingToUsePaintingPiece = false;
+            //this isn't the issue
         }
     }
 }

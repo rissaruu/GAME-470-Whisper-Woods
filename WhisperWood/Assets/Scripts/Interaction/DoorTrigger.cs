@@ -103,6 +103,7 @@ public class DoorTrigger : MonoBehaviour
             Interaction();
             gameObject.name = "Door";
             isTouchingLockedDoor = false;
+            Interactable.tryingToUseTomKey = false;
         }
         if (!canTrigger && Interactable.tryingToUseTomKey)
         {

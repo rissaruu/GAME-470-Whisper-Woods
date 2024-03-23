@@ -27,11 +27,17 @@ public class DialogueManager : MonoBehaviour
     public TMP_Text nameTextBox;
     public GameObject nameBox;
 
+    public ItemIndex ItemIndex;
+    public DrinkingPuzzle DrinkingPuzzle;
+    public D20Roll D20Roll;
+
     //IMAGES
     [SerializeField] private Sprite CoralImage;
     [SerializeField] private Sprite BeetlemastImage;
+    [SerializeField] private Sprite ElmoreImage;
 
     //TOM
+    [SerializeField] private GameObject TomTrigger1;
     [SerializeField] private GameObject TomTrigger2;
     [SerializeField] private GameObject TomTrigger3;
     [SerializeField] private GameObject TomTrigger4;
@@ -40,19 +46,41 @@ public class DialogueManager : MonoBehaviour
     private bool shouldTomDialogue4;
 
     //BEETLEMAST
+    [SerializeField] private GameObject BeetlemastTrigger1;
     [SerializeField] private GameObject BeetlemastTrigger2;
+    [SerializeField] private GameObject BeetlemastTrigger3;
+    [SerializeField] private GameObject BeetlemastTrigger4;
     private bool shouldBeetlemastDialogue2;
+    private bool shouldBeetlemastDialogue3;
+    private bool shouldBeetlemastDialogue4;
 
     //ELMORE
-    public GameObject ElmoreTrigger2;
+    [SerializeField] private GameObject ElmoreTrigger1;
+    public GameObject ElmoreStartPuzzleTrigger;
+    public GameObject ElmoreBadEndTrigger;
+    public GameObject ElmoreGoodEndTrigger;
+    [SerializeField] private GameObject ElmoreRandomizedTrigger1;
+    [SerializeField] private GameObject ElmoreRandomizedTrigger2;
+    private bool shouldRandomBeginnerElmoreDialogue;
+    private bool shouldRandomEndElmoreDialogue;
+    private bool shouldElmorePuzzleBegin;
+    private bool shouldElmoreBadPuzzleEnding;
+    private bool shouldElmoreGoodPuzzleEnding;
 
     //CORAL
+    [SerializeField] private GameObject CoralTrigger1;
     [SerializeField] private GameObject CoralTrigger2;
     [SerializeField] private GameObject CoralRandomizedTrigger1;
     [SerializeField] private GameObject CoralRandomizedTrigger2;
     private bool shouldCoralDialogue2;
     private bool shouldRandomBeginnerCoralDialogue;
     private bool shouldRandomEndCoralDialogue;
+
+    private bool notStartedDialogue;
+
+    //DRORAN
+    
+
 
     private void Start()
     {
@@ -67,13 +95,24 @@ public class DialogueManager : MonoBehaviour
         TomTrigger3.SetActive(false);
         TomTrigger4.SetActive(false);
         BeetlemastTrigger2.SetActive(false);
+        BeetlemastTrigger3.SetActive(false);
+        BeetlemastTrigger4.SetActive(false);
         CoralTrigger2.SetActive(false);
         CoralRandomizedTrigger1.SetActive(false);
         CoralRandomizedTrigger2.SetActive(false);
+        ElmoreRandomizedTrigger1.SetActive(false);
+        ElmoreRandomizedTrigger2.SetActive(false);
+        ElmoreStartPuzzleTrigger.SetActive(false);
+        ElmoreTrigger1.SetActive(true);
+        ElmoreGoodEndTrigger.SetActive(false);
+        ElmoreBadEndTrigger.SetActive(false);
+        notStartedDialogue = true;
+
     }
 
     public void DialogueStart(List<DialogueString> textToPrint, Transform NPC, GameObject character)
     {
+
         dialogueParent.SetActive(true);
         currentDialogueIndex = 0;
         GameManager.DisablePlayer();
@@ -91,7 +130,11 @@ public class DialogueManager : MonoBehaviour
                 character.SetActive(false);
                 shouldBeetlemastDialogue2 = true;
             }
-
+            if (character.name == "BeetlemastDialogueTrigger2")
+            {
+                //not sure anything is needed here
+                //shouldBeetlemastDialogue2 = true;
+            }
             
         }
 
@@ -102,6 +145,10 @@ public class DialogueManager : MonoBehaviour
             {
                 character.SetActive(false);
                 shouldTomDialogue2 = true;
+                shouldBeetlemastDialogue3 = true;
+                shouldBeetlemastDialogue2 = false;
+                BeetlemastTrigger1.SetActive(false);
+                BeetlemastTrigger2.SetActive(false);
             }
             if (character.name == "TomDialogueTrigger2")
             {
@@ -111,7 +158,64 @@ public class DialogueManager : MonoBehaviour
             if (character.name == "TomDialogueTrigger3")
             {
                 character.SetActive(false);
-                shouldTomDialogue4 = true;
+                //shouldTomDialogue4 = true;
+            }
+        }
+        if (character.CompareTag("Droran"))
+        {
+            if (character.name == "DroranDialogueTrigger1")
+            {
+                character.SetActive(false);
+                shouldElmorePuzzleBegin = true;
+                shouldRandomBeginnerElmoreDialogue = false;
+                ElmoreRandomizedTrigger1.SetActive(false);
+            }
+        }
+
+        if (character.CompareTag("Elmore"))
+        {
+            characterCard.SetActive(true);
+            characterCard.GetComponent<Image>().sprite = ElmoreImage;
+            nameTextBox.GetComponent<TextMeshProUGUI>().text = "Elmore";
+            if (character.name == "ElmoreDialogueTrigger1")
+            {
+                character.SetActive(false);
+                shouldRandomBeginnerElmoreDialogue = true;
+            }
+            if (character.name == "ElmoreDialoguePuzzleStartTrigger")
+            {
+                character.SetActive(false);
+                if (!DrinkingPuzzle.notRiggedAnymore)
+                {
+                    shouldElmoreBadPuzzleEnding = true;
+                }
+                else
+                {
+                    shouldElmoreBadPuzzleEnding = false;
+                    shouldElmoreGoodPuzzleEnding = true;
+                }
+                
+            }
+            if (character.name == "ElmoreDialoguePuzzleBadEndTrigger")
+            {
+                character.SetActive(false);
+                shouldElmorePuzzleBegin = true;
+                
+            }
+            if (character.name == "ElmoreDialoguePuzzleGoodEndTrigger")
+            {
+                character.SetActive(false);
+                shouldRandomEndElmoreDialogue = true;
+                shouldCoralDialogue2 = true;
+            }
+            if (character.name == "ElmoreRandomizedDialogueTrigger1")
+            {
+                currentDialogueIndex = Random.Range(0, 2);
+                character.SetActive(false);
+            }
+            if (character.name == "ElmoreRandomizedDialogueTrigger2")
+            {
+                currentDialogueIndex = Random.Range(0, 2);
             }
         }
 
@@ -123,19 +227,20 @@ public class DialogueManager : MonoBehaviour
             if (character.name == "CoralDialogueTrigger1") //this will have to be changed later to if the player has spoken to elmor or not
             {
                 character.SetActive(false);
-                shouldCoralDialogue2 = true;
+                //shouldCoralDialogue2 = true;
+                shouldRandomBeginnerCoralDialogue = true;
             }
             if (character.name == "CoralDialogueTrigger2") //this logic is not in correct order!!
             {
-                Debug.Log("setting inactive");
+                //Debug.Log("setting inactive");
                 character.SetActive(false);
-                shouldRandomBeginnerCoralDialogue = true;
+                
             }
             if (character.name == "CoralRandomizedDialogueTrigger1")
             {
                 currentDialogueIndex = Random.Range(0, 3);
-                character.SetActive(false);
-                shouldRandomEndCoralDialogue = true;
+                //character.SetActive(false);
+                //shouldRandomEndCoralDialogue = true;
             }
             if (character.name == "CoralRandomizedDialogueTrigger2")
             {
@@ -153,6 +258,62 @@ public class DialogueManager : MonoBehaviour
         StartCoroutine(PrintDialogue());
     }
 
+    private void Update()
+    {
+        //Gonna be used for checks that need to be constant
+        if (ItemIndex.inventoryItems.ContainsKey("Combination")) //Beetlemast puzzle is over
+        {
+            BeetlemastTrigger1.SetActive(false);
+            BeetlemastTrigger2.SetActive(false);
+            BeetlemastTrigger3.SetActive(false);
+            shouldBeetlemastDialogue2 = false;
+            shouldBeetlemastDialogue3 = false;
+            shouldBeetlemastDialogue4 = true;
+            BeetlemastTrigger4.SetActive(true);
+
+            if (TomTrigger1.activeInHierarchy)
+            {
+                TomTrigger1.SetActive(false);
+                TomTrigger2.SetActive(true);
+                TomTrigger3.SetActive(false);
+                shouldTomDialogue3 = false;
+            }
+ 
+
+        }
+    }
+
+    public void HandleElmoreDrinkingDialogue(bool isFailure)
+    {
+        if (isFailure)
+        {
+
+            //shouldRandomBeginnerElmoreDialogue = false;
+            //StartCoroutine(PrintDialogue());
+            StartCoroutine(WaitForBadRoll());
+            
+        }
+        else
+        {
+            StartCoroutine(WaitForGoodRoll());
+        }
+    }
+
+    IEnumerator WaitForBadRoll()
+    {
+        yield return new WaitForSeconds(3f);
+
+        ElmoreBadEndTrigger.GetComponent<DialogueTrigger>().startDialogue = true;
+        
+    }
+
+    IEnumerator WaitForGoodRoll()
+    {
+        yield return new WaitForSeconds(3f);
+
+        ElmoreGoodEndTrigger.GetComponent<DialogueTrigger>().startDialogue = true;
+    }
+
     private void CheckDialogueConditions()
     {
         if (shouldTomDialogue2)
@@ -164,7 +325,7 @@ public class DialogueManager : MonoBehaviour
         if (shouldTomDialogue3)
         {
             TomTrigger3.SetActive(true);
-            shouldTomDialogue3 = false;
+            //shouldTomDialogue3 = false;
         }
 
         if (shouldTomDialogue4)
@@ -178,16 +339,67 @@ public class DialogueManager : MonoBehaviour
             BeetlemastTrigger2.SetActive(true);
         }
 
+
+
+        if (shouldBeetlemastDialogue3)
+        {
+            BeetlemastTrigger3.SetActive(true);
+            //shouldBeetlemastDialogue3 = false;
+        }
+
+        if (shouldBeetlemastDialogue4)
+        {
+            BeetlemastTrigger4.SetActive(true);
+        }
+
+        if (shouldRandomBeginnerElmoreDialogue)
+        {
+            ElmoreRandomizedTrigger1.SetActive(true);
+            
+        }
+
+        if (shouldRandomEndElmoreDialogue)
+        {
+            ElmoreRandomizedTrigger2.SetActive(true);
+        }
+
+        if (shouldElmorePuzzleBegin)
+        {
+            ElmoreTrigger1.SetActive(false);
+            ElmoreStartPuzzleTrigger.SetActive(true);
+            shouldElmorePuzzleBegin = false;
+        }
+
+        if (shouldElmoreBadPuzzleEnding)
+        {
+            ElmoreStartPuzzleTrigger.SetActive(false);
+            ElmoreBadEndTrigger.SetActive(true);
+
+            shouldElmoreBadPuzzleEnding = false;
+        }
+
+        if (shouldElmoreGoodPuzzleEnding)
+        {
+            ElmoreStartPuzzleTrigger.SetActive(false);
+            ElmoreBadEndTrigger.SetActive(false);
+            ElmoreGoodEndTrigger.SetActive(true);
+            CoralTrigger1.SetActive(false);
+            CoralRandomizedTrigger1.SetActive(false);
+
+            shouldElmoreGoodPuzzleEnding = false;
+        }
+
         if (shouldCoralDialogue2) 
         {
+            
             CoralTrigger2.SetActive(true);
-            shouldCoralDialogue2 = false;
+            //shouldCoralDialogue2 = false;
         }
 
         if (shouldRandomBeginnerCoralDialogue)
         {
             CoralRandomizedTrigger1.SetActive(true);
-            shouldRandomBeginnerCoralDialogue = false;   
+            //shouldRandomBeginnerCoralDialogue = false;   
         }
 
         if (shouldRandomEndCoralDialogue)
@@ -205,27 +417,10 @@ public class DialogueManager : MonoBehaviour
 
     }
 
-    //private IEnumerator TurnCameraTowardsNPC(Transform NPC)
-    //{
-    //    //Quaternion startRotation = playerCamera.rotation;
-    //    //Quaternion targetRotation = Quaternion.LookRotation(NPC.position - playerCamera.position);
-
-    //    //float elapsedTime = 0;
-    //    //while(elapsedTime < 1f)
-    //    //{
-    //    //    playerCamera.rotation = Quaternion.Slerp(startRotation, targetRotation, elapsedTime);
-    //    //    elapsedTime += Time.deltaTime * turnSpeed;
-    //    //    yield return null;
-    //    //}
-
-    //    //playerCamera.rotation = targetRotation;
-    //}
-
     private bool optionSelected = false;
 
     private IEnumerator PrintDialogue()
     {
-        Debug.Log("Index: " + currentDialogueIndex);
         while(currentDialogueIndex < dialogueList.Count)
         {
             DialogueString line = dialogueList[currentDialogueIndex];
@@ -233,19 +428,17 @@ public class DialogueManager : MonoBehaviour
             line.startDialogueEvent?.Invoke();
 
 
+
             if (line.isQuestion)
             {
+
                 yield return StartCoroutine(TypeText(line.npcDialogue));
-
-                //option1Button.interactable = true;
-                //option2Button.interactable = true;
-
-
 
                 option1Button.gameObject.SetActive(true);
                 
                 option1Button.GetComponentInChildren<TMP_Text>().text = line.answerOption1;
                 option1Button.onClick.AddListener(() => HandleOptionSelected(line.option1IndexJump));
+
 
                 if (!line.oneOption) //checking that there isn't only one option
                 {
@@ -253,19 +446,12 @@ public class DialogueManager : MonoBehaviour
                     option2Button.GetComponentInChildren<TMP_Text>().text = line.answerOption2;
                     option2Button.onClick.AddListener(() => HandleOptionSelected(line.option2IndexJump));
                 }
-                //else
-                //{
-                //    RectTransform buttonRectTransform = option1Button.GetComponent<RectTransform>();
-                //    Vector3 newPosition = buttonRectTransform.position;
-                //    newPosition.x += 113;
-                //    buttonRectTransform.position = newPosition;
-                //}
-
+                optionSelected = false;
 
                 yield return new WaitUntil(() => optionSelected);
 
             }
-            else
+            if(!line.isQuestion)
             {
                 yield return StartCoroutine(TypeText(line.npcDialogue));
             }
@@ -283,6 +469,13 @@ public class DialogueManager : MonoBehaviour
 
     private void HandleOptionSelected(int indexJump)
     {
+        if (option1Button.GetComponentInChildren<TMP_Text>().text == "Drink the Dragon's Ember Elixir")
+        {
+            DialogueStop();
+            //drinking game call
+            DrinkingPuzzle.DrinkingGameBegin();
+        }
+
         optionSelected = true;
         DisableButtons();
 
@@ -317,14 +510,6 @@ public class DialogueManager : MonoBehaviour
         dialogueText.text = "";
         dialogueParent.SetActive(false);
 
-        ////enable player here
-        //GameManager.canPlayer.walk = true;
-        //GameManager.canPlayer.rotate = true;
-        //GameManager.canPlayer.jump = true;
-        //GameManager.canPause = true;
-        //GameManager.canCamera = true;
-        //Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
         GameManager.EnablePlayer();
         centerPoint.SetActive(true);
         characterCard.SetActive(false);
