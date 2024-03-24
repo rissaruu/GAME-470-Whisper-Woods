@@ -23,6 +23,7 @@ public class Interactable : MonoBehaviour
     public Sprite keyImage;
     public Sprite paintingPieceImage;
     public Sprite playingCardImage;
+    public Sprite playingCardCloseImage;
     public Sprite scrollImage;
     public Sprite DroranAdImage;
 
@@ -111,6 +112,11 @@ public class Interactable : MonoBehaviour
         //inspectButton.gameObject.SetActive(false);   
         interactableImage.gameObject.SetActive(true);
         interactableImage.sprite = Item;
+        if (Item = playingCardImage)
+        {
+            interactableImage.sprite = playingCardCloseImage;
+        }
+
         exitButton.gameObject.SetActive(true);
         exitButton.onClick.AddListener(() => OnExitButtonClick());
 
@@ -129,6 +135,7 @@ public class Interactable : MonoBehaviour
         interactableImage.gameObject.SetActive(false);
         addToInventoryButton.SetActive(false);
         objectInteractable.gameObject.SetActive(false);
+        objectInteractable = null;
         GameManager.EnablePlayer();
     }
 
@@ -172,6 +179,7 @@ public class Interactable : MonoBehaviour
             }
 
         }
+
 
         if (Input.GetKeyDown(KeyCode.I))
         {

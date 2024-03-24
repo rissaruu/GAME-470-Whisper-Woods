@@ -30,6 +30,7 @@ public class DialogueManager : MonoBehaviour
     public ItemIndex ItemIndex;
     public DrinkingPuzzle DrinkingPuzzle;
     public D20Roll D20Roll;
+    public CardPuzzle CardPuzzle;
 
     //IMAGES
     [SerializeField] private Sprite CoralImage;
@@ -69,7 +70,7 @@ public class DialogueManager : MonoBehaviour
 
     //CORAL
     [SerializeField] private GameObject CoralTrigger1;
-    [SerializeField] private GameObject CoralTrigger2;
+    public GameObject CoralTrigger2;
     [SerializeField] private GameObject CoralRandomizedTrigger1;
     [SerializeField] private GameObject CoralRandomizedTrigger2;
     private bool shouldCoralDialogue2;
@@ -79,7 +80,13 @@ public class DialogueManager : MonoBehaviour
     private bool notStartedDialogue;
 
     //DRORAN
-    
+    [SerializeField] private GameObject DroranTrigger1;
+    [SerializeField] private GameObject DroranTrigger2;
+    [SerializeField] private GameObject DroranRandomizedTrigger;
+    [SerializeField] private GameObject DroranEndTrigger;
+    private bool shouldRandomDroranDialogue;
+    private bool shouldDroranDialogue2;
+    private bool shouldDroranEndDialogue;
 
 
     private void Start()
@@ -97,6 +104,9 @@ public class DialogueManager : MonoBehaviour
         BeetlemastTrigger2.SetActive(false);
         BeetlemastTrigger3.SetActive(false);
         BeetlemastTrigger4.SetActive(false);
+        DroranTrigger2.SetActive(false);
+        DroranRandomizedTrigger.SetActive(false);
+        DroranEndTrigger.SetActive(false);
         CoralTrigger2.SetActive(false);
         CoralRandomizedTrigger1.SetActive(false);
         CoralRandomizedTrigger2.SetActive(false);
@@ -163,9 +173,19 @@ public class DialogueManager : MonoBehaviour
         }
         if (character.CompareTag("Droran"))
         {
+            nameTextBox.GetComponent<TextMeshProUGUI>().text = "Droran";
             if (character.name == "DroranDialogueTrigger1")
             {
                 character.SetActive(false);
+                shouldRandomDroranDialogue = true;
+
+            }
+            if (character.name == "DroranRandomizedDialogueTrigger")
+            {
+                currentDialogueIndex = Random.Range(0, 3);
+            }
+            if (character.name == "DroranDialogueTrigger2") //puzzle
+            {
                 shouldElmorePuzzleBegin = true;
                 shouldRandomBeginnerElmoreDialogue = false;
                 ElmoreRandomizedTrigger1.SetActive(false);
@@ -194,6 +214,8 @@ public class DialogueManager : MonoBehaviour
                     shouldElmoreBadPuzzleEnding = false;
                     shouldElmoreGoodPuzzleEnding = true;
                 }
+                shouldDroranEndDialogue = true;
+                shouldDroranDialogue2 = false;
                 
             }
             if (character.name == "ElmoreDialoguePuzzleBadEndTrigger")
@@ -206,12 +228,13 @@ public class DialogueManager : MonoBehaviour
             {
                 character.SetActive(false);
                 shouldRandomEndElmoreDialogue = true;
+                shouldRandomBeginnerCoralDialogue = false;
                 shouldCoralDialogue2 = true;
             }
             if (character.name == "ElmoreRandomizedDialogueTrigger1")
             {
                 currentDialogueIndex = Random.Range(0, 2);
-                character.SetActive(false);
+                //character.SetActive(false);
             }
             if (character.name == "ElmoreRandomizedDialogueTrigger2")
             {
@@ -224,13 +247,13 @@ public class DialogueManager : MonoBehaviour
             characterCard.SetActive(true);
             characterCard.GetComponent<Image>().sprite = CoralImage;
             nameTextBox.GetComponent<TextMeshProUGUI>().text = "Coral";
-            if (character.name == "CoralDialogueTrigger1") //this will have to be changed later to if the player has spoken to elmor or not
+            if (character.name == "CoralDialogueTrigger1") 
             {
                 character.SetActive(false);
                 //shouldCoralDialogue2 = true;
                 shouldRandomBeginnerCoralDialogue = true;
             }
-            if (character.name == "CoralDialogueTrigger2") //this logic is not in correct order!!
+            if (character.name == "CoralDialogueTrigger2") 
             {
                 //Debug.Log("setting inactive");
                 character.SetActive(false);
@@ -280,6 +303,27 @@ public class DialogueManager : MonoBehaviour
             }
  
 
+        }
+
+        if (ItemIndex.inventoryItems.ContainsKey("DroranAd"))
+        {
+            if (DroranTrigger1.activeInHierarchy || DroranRandomizedTrigger.activeInHierarchy)
+            {
+                shouldDroranDialogue2 = true;
+                shouldRandomDroranDialogue = false;
+                DroranTrigger2.SetActive(true);
+                DroranRandomizedTrigger.SetActive(false);
+                DroranTrigger1.SetActive(false);
+            }
+
+        }
+
+        if (ItemIndex.inventoryItems.ContainsKey("PlayingCard"))
+        {
+            shouldCoralDialogue2 = false;
+            shouldRandomEndCoralDialogue = true;
+            CoralTrigger2.SetActive(false);
+            CoralRandomizedTrigger2.SetActive(true);
         }
     }
 
@@ -352,6 +396,24 @@ public class DialogueManager : MonoBehaviour
             BeetlemastTrigger4.SetActive(true);
         }
 
+        if (shouldRandomDroranDialogue)
+        {
+            DroranRandomizedTrigger.SetActive(true);
+            DroranTrigger1.SetActive(false);
+
+        }
+        if (shouldDroranDialogue2)
+        {
+            DroranTrigger1.SetActive(false);
+            DroranRandomizedTrigger.SetActive(false);
+            DroranTrigger2.SetActive(true);
+        }
+        if (shouldDroranEndDialogue)
+        {
+            DroranTrigger2.SetActive(false);
+            DroranEndTrigger.SetActive(true);
+        }
+
         if (shouldRandomBeginnerElmoreDialogue)
         {
             ElmoreRandomizedTrigger1.SetActive(true);
@@ -393,6 +455,7 @@ public class DialogueManager : MonoBehaviour
         {
             
             CoralTrigger2.SetActive(true);
+            CoralRandomizedTrigger1.SetActive(false);
             //shouldCoralDialogue2 = false;
         }
 
