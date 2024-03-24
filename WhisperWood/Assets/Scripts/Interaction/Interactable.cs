@@ -37,6 +37,10 @@ public class Interactable : MonoBehaviour
     public Button slot3Button;  
     public Button slot4Button;
     public Button slot5Button;  
+    public Button slot6Button;  
+    public Button slot7Button;
+    public Button slot8Button;
+    public Button slot9Button;
 
     public List<Button> slotButtons;
 
@@ -65,6 +69,10 @@ public class Interactable : MonoBehaviour
         slotButtons.Add(slot3Button);
         slotButtons.Add(slot4Button);
         slotButtons.Add(slot5Button);
+        slotButtons.Add(slot6Button);
+        slotButtons.Add(slot7Button);
+        slotButtons.Add(slot8Button);
+        slotButtons.Add(slot9Button);
 
         foreach (Button slotButton in slotButtons)
         {
@@ -72,7 +80,6 @@ public class Interactable : MonoBehaviour
             slotButton.enabled = false;
             slotButton.gameObject.SetActive(false); 
         }
-
     }
 
     public void OnSlotClick(Button slotButton)
@@ -112,7 +119,7 @@ public class Interactable : MonoBehaviour
         //inspectButton.gameObject.SetActive(false);   
         interactableImage.gameObject.SetActive(true);
         interactableImage.sprite = Item;
-        if (Item = playingCardImage)
+        if (Item == playingCardImage)
         {
             interactableImage.sprite = playingCardCloseImage;
         }

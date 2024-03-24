@@ -36,6 +36,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private Sprite CoralImage;
     [SerializeField] private Sprite BeetlemastImage;
     [SerializeField] private Sprite ElmoreImage;
+    [SerializeField] private Sprite DroranImage;
 
     //TOM
     [SerializeField] private GameObject TomTrigger1;
@@ -173,7 +174,9 @@ public class DialogueManager : MonoBehaviour
         }
         if (character.CompareTag("Droran"))
         {
-            nameTextBox.GetComponent<TextMeshProUGUI>().text = "Droran";
+            characterCard.SetActive(true);
+            characterCard.GetComponent<Image>().sprite = DroranImage;
+           nameTextBox.GetComponent<TextMeshProUGUI>().text = "Droran";
             if (character.name == "DroranDialogueTrigger1")
             {
                 character.SetActive(false);

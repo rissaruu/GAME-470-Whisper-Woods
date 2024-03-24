@@ -13,7 +13,7 @@ public class CardPuzzle : MonoBehaviour
 
     private void Start()
     {
-        aceCard.layer = LayerMask.NameToLayer("Default");
+        //aceCard.layer = LayerMask.NameToLayer("Default");
 
     }
 
