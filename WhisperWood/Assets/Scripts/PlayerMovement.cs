@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
         }
 
         // Jump
-        if (playerInput.actions["Jump"].triggered && GameManager.canPlayer.jump)
+        if (playerInput.actions["Jump"].triggered && GameManager.canPlayer.jump && !GameManager.isPlayer.jumping)
         {
             GameManager.isPlayer.jumping = true;
             Jump();
