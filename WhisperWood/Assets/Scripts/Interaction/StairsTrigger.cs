@@ -33,12 +33,23 @@ public class StairsTrigger : MonoBehaviour
     {
         if (canTrigger && Input.GetKeyDown(KeyCode.E))
         {
-            //Logic to make player go up
-            float newYValue = player.transform.position.y + 4;
-            float newZValue = player.transform.position.z - 5;
-            playerPosition = new Vector3(player.transform.position.x, newYValue, newZValue);
-            player.transform.position = playerPosition;
-            //playerTransform = new Vector3(playerTransform.position.x, playerTransform.position.y, playerTransform.position.z);
+            //Logic to move player
+            if (gameObject.name == "DownStairsTrigger") 
+            {
+                float newYValue = player.transform.position.y + 4;
+                float newZValue = player.transform.position.z - 1;
+                playerPosition = new Vector3(player.transform.position.x, newYValue, newZValue);
+                player.transform.position = playerPosition;
+                //playerTransform = new Vector3(playerTransform.position.x, playerTransform.position.y, playerTransform.position.z);
+            }
+            else if (gameObject.name == "UpStairsTrigger") 
+            {
+                float newYValue = player.transform.position.y - 4;
+                float newZValue = player.transform.position.z - 1;
+                playerPosition = new Vector3(player.transform.position.x, newYValue, newZValue);
+                player.transform.position = playerPosition;
+                //playerTransform = new Vector3(playerTransform.position.x, playerTransform.position.y, playerTransform.position.z);
+            }
         }
     }
 }
