@@ -61,10 +61,10 @@ public class CombinationLock : MonoBehaviour
         luggageCombination.Add(4);
 
         //Real code is 7390
-        drawerCombination.Add(1);
-        drawerCombination.Add(2);
+        drawerCombination.Add(7);
         drawerCombination.Add(3);
-        drawerCombination.Add(4);
+        drawerCombination.Add(9);
+        drawerCombination.Add(0);
 
         LockUI.SetActive(false);
         solvedLuggageCombination = false;
