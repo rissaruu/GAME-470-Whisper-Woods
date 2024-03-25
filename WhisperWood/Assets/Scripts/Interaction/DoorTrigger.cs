@@ -65,7 +65,17 @@ public class DoorTrigger : MonoBehaviour
 
     public IEnumerator OnInteract()
     {
-        float rotfactor = doorClosed ? 1f : -1f;
+        float rotfactor;
+
+        if (gameObject.name == "DoorR")
+        {
+            rotfactor = doorClosed ? -1f : 1f;
+        }
+        else 
+        { 
+            rotfactor = doorClosed ? 1f : -1f; 
+        }
+
         canTrigger = false;
         Transform doorHing = transform.parent.Find("Hinge");
 
