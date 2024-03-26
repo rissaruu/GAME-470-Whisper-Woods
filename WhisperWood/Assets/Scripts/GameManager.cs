@@ -7,6 +7,7 @@ public struct IsPlayer
     public bool walking;
     public bool running;
     public bool jumping;
+    public bool vaulting;
 }
 
 
@@ -16,6 +17,7 @@ public struct CanPlayer
     public bool run;
     public bool jump;
     public bool rotate;
+    public bool vault;
 }
 
 

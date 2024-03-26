@@ -36,7 +36,7 @@ public class StairsTrigger : MonoBehaviour
             //Logic to move player
             if (gameObject.name == "DownStairsTrigger") 
             {
-                float newYValue = player.transform.position.y + 4;
+                float newYValue = player.transform.position.y + 5;
                 float newZValue = player.transform.position.z - 1;
                 playerPosition = new Vector3(player.transform.position.x, newYValue, newZValue);
                 player.transform.position = playerPosition;
@@ -44,7 +44,7 @@ public class StairsTrigger : MonoBehaviour
             }
             else if (gameObject.name == "UpStairsTrigger") 
             {
-                float newYValue = player.transform.position.y - 4;
+                float newYValue = player.transform.position.y - 5;
                 float newZValue = player.transform.position.z - 1;
                 playerPosition = new Vector3(player.transform.position.x, newYValue, newZValue);
                 player.transform.position = playerPosition;

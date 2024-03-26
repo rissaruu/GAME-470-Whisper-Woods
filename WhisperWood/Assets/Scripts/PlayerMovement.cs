@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
 
     void Start()
     {
-        playerAnimation = GameObject.FindWithTag("PlayerAnimation").GetComponent<Animator>();//This should find the detective player model for the animator. Enable when detective model and the capsule are combine for testing.
+        playerAnimation = GameObject.FindWithTag("Player").GetComponent<Animator>();//This should find the detective player model for the animator.
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions.FindAction("Move");
         rotateCameraAction = playerInput.actions.FindAction("RotateCamera"); // Initialize rotateCameraAction
@@ -31,22 +31,24 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
 
     void Move()
     {
-        GameManager.isPlayer.walking = true;
-
         Vector2 direction = moveAction.ReadValue<Vector2>();
 
+        // Get the movement direction based on the input
+        Vector3 movementDirection = new Vector3(direction.x, 0f, direction.y);
 
-            // Get the movement direction based on the input
-            Vector3 movementDirection = new Vector3(direction.x, 0f, direction.y);
+        // Normalize the movement direction to ensure consistent speed
+        movementDirection.Normalize();
 
-            // Normalize the movement direction to ensure consistent speed
-            movementDirection.Normalize();
-
-            // Move the player
+        // Move the player
+        if (playerInput.actions["Run"].triggered)
+        {
+            transform.position += transform.TransformDirection(movementDirection) * GameManager.playerWalkSpeed * GameManager.runSpeedMod * Time.deltaTime;
+        }
+        else
+        {
             transform.position += transform.TransformDirection(movementDirection) * GameManager.playerWalkSpeed * Time.deltaTime;
-
-
-    }
+        }
+    }       
 
     void Update()
     {
@@ -57,14 +59,35 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
         }
 
         // Jump
-        if (playerInput.actions["Jump"].triggered && GameManager.canPlayer.jump && !GameManager.isPlayer.jumping) //I might need to figer out if something went wrong with this.
+        if (playerInput.actions["Jump"].triggered && GameManager.canPlayer.jump && !GameManager.isPlayer.jumping)
         {
             GameManager.isPlayer.jumping = true;
             Jump();
         }
 
-        GameManager.isPlayer.walking = false;
-        GameManager.isPlayer.running = false;
+
+        Vector2 direction = moveAction.ReadValue<Vector2>();
+        float movementMagnitude = direction.magnitude;
+
+        if (movementMagnitude != 0 && !GameManager.isPlayer.jumping)
+        {
+            if (playerInput.actions["Run"].triggered)
+            {
+                GameManager.isPlayer.running = true;
+                GameManager.isPlayer.walking = false;
+            }
+            else
+            {
+                GameManager.isPlayer.running = false;
+                GameManager.isPlayer.walking = true;
+            }
+        }
+        else
+        {
+            GameManager.isPlayer.walking = false;
+            GameManager.isPlayer.running = false;
+        }
+
         PlayerAnimationAndInteractions(); //This plays the animations, enable when testing animations.
     }
 
@@ -83,7 +106,7 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
             StartCoroutine(CanJumpAgain());
         }
       //elseif(All the other stuff except player is colliding with tag vault)
-      //{Timer += Time.Deltatime; if Timer >= 3f;{StartCoroutine(CanJumpAgain());}}
+      //{Timer += Time.Deltatime; if Timer >= 31f;{StartCoroutine(CanJumpAgain());}
     }
 
     IEnumerator CanJumpAgain()
@@ -99,7 +122,7 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
     {
         if ( colliding with tag "vault" && GameManager.IsPlayerJumping)
         {
-         move the player across object and call animation
+         move the player across object, set bool to isVaulting
         }
     }
 
@@ -122,16 +145,22 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
         if (GameManager.isPlayer.walking == true) //I might need to double check if all else if works without the if.
         {
             playerAnimation.SetBool("walking", true);
+            playerAnimation.SetBool("Jumping", false);
+            playerAnimation.SetBool("Running", false);
             Debug.Log("Walk Animation works!");
         }
         else if (GameManager.isPlayer.jumping == true)
         {
             playerAnimation.SetBool("Jumping", true); //This have a refernce issue.
+            playerAnimation.SetBool("walking", false);
+            playerAnimation.SetBool("Running", false);
             //Debug.Log("Jumps Animation works!");
         }
         else if (GameManager.isPlayer.running)
         {
             playerAnimation.SetBool("Running", true);
+            playerAnimation.SetBool("walking", false);
+            playerAnimation.SetBool("Jumping", false);
             //Debug.Log("Run Animation works!");
         }
         else
@@ -140,6 +169,5 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
             playerAnimation.SetBool("Jumping", false);
             playerAnimation.SetBool("Running", false);
         }
-
     }
 }

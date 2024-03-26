@@ -3,7 +3,12 @@ guid: 18dc5084d4b99044795adc15f8149973
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pot_metal_texture
+    second: {fileID: 2100000, guid: bd2bbe27210f65a428721790c660d3e0, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
