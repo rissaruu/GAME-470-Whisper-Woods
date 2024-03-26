@@ -15,6 +15,7 @@ TagManager:
   - Coral
   - Elmore
   - Droran
+  - PlayerAnimation
   layers:
   - Default
   - TransparentFX

@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
 
     void Start()
     {
-        //playerAnimation = GameObject.FindWithTag("Player").GetComponent<Animator>();//This should find the detective player model for the animator. Enable when detective model and the capsule are combine for testing.
+        playerAnimation = GameObject.FindWithTag("PlayerAnimation").GetComponent<Animator>();//This should find the detective player model for the animator. Enable when detective model and the capsule are combine for testing.
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions.FindAction("Move");
         rotateCameraAction = playerInput.actions.FindAction("RotateCamera"); // Initialize rotateCameraAction
@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
 
         GameManager.isPlayer.walking = false;
         GameManager.isPlayer.running = false;
-        //PlayerAnimationAndInteractions(); //This plays the animations, enable when testing animations.
+        PlayerAnimationAndInteractions(); //This plays the animations, enable when testing animations.
     }
 
     public void Jump()
@@ -118,26 +118,27 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
 
     public void PlayerAnimationAndInteractions()
     {
-        if (GameManager.isPlayer.walking) //I might need to double check if all else if works without the if.
+        Debug.Log("isPlayer Walking: " + GameManager.isPlayer.walking);
+        if (GameManager.isPlayer.walking == true) //I might need to double check if all else if works without the if.
         {
             playerAnimation.SetBool("walking", true);
             Debug.Log("Walk Animation works!");
         }
-        else if (GameManager.isPlayer.jumping)
+        else if (GameManager.isPlayer.jumping == true)
         {
-            playerAnimation.SetBool("jumping", true); //This have a refernce issue.
-            Debug.Log("Jumps Animation works!");
+            playerAnimation.SetBool("Jumping", true); //This have a refernce issue.
+            //Debug.Log("Jumps Animation works!");
         }
         else if (GameManager.isPlayer.running)
         {
-            playerAnimation.SetBool("running", true);
-            Debug.Log("Run Animation works!");
+            playerAnimation.SetBool("Running", true);
+            //Debug.Log("Run Animation works!");
         }
         else
         {
             playerAnimation.SetBool("walking", false);
-            playerAnimation.SetBool("jumping", false);
-            playerAnimation.SetBool("running", false);
+            playerAnimation.SetBool("Jumping", false);
+            playerAnimation.SetBool("Running", false);
         }
 
     }
