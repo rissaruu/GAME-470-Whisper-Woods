@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     //PLAYER VARIABLES
     public const float playerWalkSpeed = 5f;
     public const float rotationSpeed = 5f;
-    public const float runSpeedMod = 4f;
+    public const float playerRunSpeed = 10f;
     public const float playerJumpForce = 4f;
 
     public static CanPlayer canPlayer = new CanPlayer();

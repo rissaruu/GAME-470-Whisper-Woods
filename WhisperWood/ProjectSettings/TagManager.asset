@@ -16,6 +16,8 @@ TagManager:
   - Elmore
   - Droran
   - PlayerAnimation
+  - Clock
+  - Vault
   layers:
   - Default
   - TransparentFX

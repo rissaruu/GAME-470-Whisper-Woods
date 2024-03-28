@@ -40,13 +40,15 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
         movementDirection.Normalize();
 
         // Move the player
-        if (playerInput.actions["Run"].triggered)
+        if (GameManager.isPlayer.running)
         {
-            transform.position += transform.TransformDirection(movementDirection) * GameManager.playerWalkSpeed * GameManager.runSpeedMod * Time.deltaTime;
+            transform.position += transform.TransformDirection(movementDirection) * GameManager.playerRunSpeed * Time.deltaTime;
+            Debug.Log("running");
         }
         else
         {
             transform.position += transform.TransformDirection(movementDirection) * GameManager.playerWalkSpeed * Time.deltaTime;
+            
         }
     }       
 
@@ -65,24 +67,29 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
             Jump();
         }
 
+        if (playerInput.actions["Run"].ReadValue<float>() > 0)
+        {
+            GameManager.isPlayer.running = true;
+            GameManager.isPlayer.walking = false;
+        }
+        else
+        {
+            GameManager.isPlayer.running = false;
+            GameManager.isPlayer.walking = true;
+        }
 
         Vector2 direction = moveAction.ReadValue<Vector2>();
         float movementMagnitude = direction.magnitude;
 
         if (movementMagnitude != 0 && !GameManager.isPlayer.jumping)
         {
-            if (playerInput.actions["Run"].triggered)
+            if (!GameManager.isPlayer.running)
             {
-                GameManager.isPlayer.running = true;
-                GameManager.isPlayer.walking = false;
-            }
-            else
-            {
-                GameManager.isPlayer.running = false;
                 GameManager.isPlayer.walking = true;
             }
+
         }
-        else
+        else 
         {
             GameManager.isPlayer.walking = false;
             GameManager.isPlayer.running = false;
@@ -99,13 +106,16 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
 
     void OnCollisionEnter(Collision collision)
     {
-        if ((GameManager.isPlayer.jumping)
+        if (GameManager.isPlayer.jumping && !collision.collider.CompareTag("Vault")
             && Vector3.Dot(collision.contacts[0].normal, Vector3.up) > 0.9f) //makes sure can't jump on walls
-          //&& Not colliding with tag vault 
+         
         {
             StartCoroutine(CanJumpAgain());
         }
-      //elseif(All the other stuff except player is colliding with tag vault)
+       else if (GameManager.isPlayer.jumping && collision.collider.CompareTag("Vault"))
+        {
+           Vault();
+        }
       //{Timer += Time.Deltatime; if Timer >= 31f;{StartCoroutine(CanJumpAgain());}
     }
 
@@ -117,16 +127,22 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
         GameManager.canPlayer.jump = true;
     }
 
-    /* placeholder pseudocode for vaulting parkour
+
+
+     //placeholder for vaulting parkour
        public void Vault()
-    {
-        if ( colliding with tag "vault" && GameManager.IsPlayerJumping)
-        {
-         move the player across object, set bool to isVaulting
-        }
+       {
+        Vector3 direction = this.transform.position - transform.position;
+        direction.y = 0f; // Ensure movement only in the horizontal plane
+
+        // Normalize the direction to maintain constant speed
+        direction.Normalize();
+
+        // Move the player
+        transform.Translate(direction * GameManager.playerRunSpeed * Time.deltaTime);
     }
 
-    */
+  
     public void LoadData(GameData data)
     {
         this.transform.position = data.playerPosition;
@@ -141,13 +157,13 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
 
     public void PlayerAnimationAndInteractions()
     {
-        Debug.Log("isPlayer Walking: " + GameManager.isPlayer.walking);
+     //   Debug.Log("isPlayer Walking: " + GameManager.isPlayer.walking);
         if (GameManager.isPlayer.walking == true) //I might need to double check if all else if works without the if.
         {
             playerAnimation.SetBool("walking", true);
             playerAnimation.SetBool("Jumping", false);
             playerAnimation.SetBool("Running", false);
-            Debug.Log("Walk Animation works!");
+           // Debug.Log("Walk Animation works!");
         }
         else if (GameManager.isPlayer.jumping == true)
         {
