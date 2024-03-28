@@ -67,7 +67,7 @@ public class DoorTrigger : MonoBehaviour
     {
         float rotfactor;
 
-        if (gameObject.name == "DoorR")
+        if (gameObject.name == "DoorR" || gameObject.name == "SafeDoor")
         {
             rotfactor = doorClosed ? -1f : 1f;
         }
