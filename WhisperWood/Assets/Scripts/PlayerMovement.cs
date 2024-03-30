@@ -112,10 +112,23 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
         {
             StartCoroutine(CanJumpAgain());
         }
+     
        else if (GameManager.isPlayer.jumping && collision.collider.CompareTag("Vault"))
         {
-           Vault();
+
+            // Calculate slide direction using the collision normal
+            Vector3 slideDirection = Vector3.Cross(collision.contacts[0].normal, Vector3.up).normalized;
+
+            Vector3 oppositeDirection = -slideDirection;
+
+            // Move the player
+            transform.Translate(oppositeDirection * GameManager.playerRunSpeed * Time.fixedDeltaTime);
+            rb.AddForce(Vector3.up * GameManager.playerJumpForce * 2, ForceMode.Impulse);
+            GameManager.isPlayer.jumping = false;
+            Debug.Log("Vault called");
+       
         }
+     
       //{Timer += Time.Deltatime; if Timer >= 31f;{StartCoroutine(CanJumpAgain());}
     }
 
@@ -125,21 +138,6 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
         GameManager.isPlayer.jumping = false;
         yield return new WaitForSeconds(1f);
         GameManager.canPlayer.jump = true;
-    }
-
-
-
-     //placeholder for vaulting parkour
-       public void Vault()
-       {
-        Vector3 direction = this.transform.position - transform.position;
-        direction.y = 0f; // Ensure movement only in the horizontal plane
-
-        // Normalize the direction to maintain constant speed
-        direction.Normalize();
-
-        // Move the player
-        transform.Translate(direction * GameManager.playerRunSpeed * Time.deltaTime);
     }
 
   
