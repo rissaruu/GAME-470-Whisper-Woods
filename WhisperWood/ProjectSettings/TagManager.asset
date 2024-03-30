@@ -18,9 +18,9 @@ TagManager:
   - PlayerAnimation
   - Clock
   - Vault
-  - CoralAnimation
   - ElmoreAnimations
   - TomAnimations
+  - CoralAnimations
   layers:
   - Default
   - TransparentFX
