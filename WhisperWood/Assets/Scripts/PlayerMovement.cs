@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem; //new Unity Input System
 //using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour, IDataPersistence
@@ -127,6 +128,14 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
             GameManager.isPlayer.jumping = false;
             Debug.Log("Vault called");
        
+        }
+
+        if (GameManager.chaseScene && collision.collider.CompareTag("Tom"))
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                SceneManager.LoadScene("VictoryScene");
+            }
         }
      
       //{Timer += Time.Deltatime; if Timer >= 31f;{StartCoroutine(CanJumpAgain());}

@@ -169,7 +169,7 @@ public class Interactable : MonoBehaviour
 
                         
                         AddInteractableObjectImage(interactingObject);
-                        //inventoryButton.onClick.AddListener(() => OnInventoryButtonClick());
+                        inventoryButton.onClick.AddListener(() => OnInventoryButtonClick());
 
                     }
 
