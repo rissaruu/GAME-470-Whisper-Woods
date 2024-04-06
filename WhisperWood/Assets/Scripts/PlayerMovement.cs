@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
     public Rigidbody rb;
     public Camera mainCamera;
     public Animator playerAnimation;
-
+    private bool tomInRange;
 
     void Start()
     {
@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
         if (GameManager.isPlayer.running)
         {
             transform.position += transform.TransformDirection(movementDirection) * GameManager.playerRunSpeed * Time.deltaTime;
-            Debug.Log("running");
+            
         }
         else
         {
@@ -97,6 +97,17 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
         }
 
         PlayerAnimationAndInteractions(); //This plays the animations, enable when testing animations.
+
+        if (tomInRange && GameManager.chaseScene)
+        {
+            // Check if the player presses the "E" key
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Debug.Log("Catch called");
+                SceneManager.LoadScene("VictoryScene");
+            }
+        }
+
     }
 
     public void Jump()
@@ -130,15 +141,21 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
        
         }
 
-        if (GameManager.chaseScene && collision.collider.CompareTag("Tom"))
+        else if (collision.collider.CompareTag("Tom"))
         {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                SceneManager.LoadScene("VictoryScene");
-            }
+            tomInRange = true;
+            Debug.Log("Tom in range");
         }
-     
-      //{Timer += Time.Deltatime; if Timer >= 31f;{StartCoroutine(CanJumpAgain());}
+
+        //{Timer += Time.Deltatime; if Timer >= 31f;{StartCoroutine(CanJumpAgain());}
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.collider.CompareTag("Tom"))
+        {
+            tomInRange = false;
+        }
     }
 
     IEnumerator CanJumpAgain()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public struct IsPlayer 
 {
@@ -29,7 +30,7 @@ public class GameManager : MonoBehaviour
     //PLAYER VARIABLES
     public const float playerWalkSpeed = 5f;
     public const float rotationSpeed = 5f;
-    public const float playerRunSpeed = 10f;
+    public const float playerRunSpeed = 8f;
     public const float playerJumpForce = 4f;
 
     public static CanPlayer canPlayer = new CanPlayer();
@@ -40,7 +41,7 @@ public class GameManager : MonoBehaviour
     public GameObject chasePrompt;
     public const int totalEvidence = 7; // for each puzzle
     public static int foundEvidence; // increase this value after every puzzle
-    public static bool chaseScene = false;
+    public static bool chaseScene = false; 
 
     public PlayerMovement PlayerMovement;
     public static bool canPause = true;
@@ -99,9 +100,8 @@ public class GameManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        StartCoroutine(ChasePrompt());
+        
     }
-
 
     IEnumerator ChasePrompt()
     {

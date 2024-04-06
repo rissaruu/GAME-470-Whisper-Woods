@@ -44,6 +44,12 @@ public class DoorTrigger : MonoBehaviour
             }
         }
 
+        if (other.CompareTag("Tom"))
+        {
+            StartCoroutine(OnInteract());
+        }
+
+
     }
     private void OnTriggerExit(Collider other)
     {
