@@ -82,7 +82,7 @@ public class DrinkingPuzzle : MonoBehaviour
                 StartCoroutine(WaitForTextToShow(rollNotHighEnoughText));
                 //StartCoroutine(ResetText(rollNotHighEnoughText));
                 drinkingUI.SetActive(false);
-                DialogueManager.HandleElmoreDrinkingDialogue(true);
+                DialogueManager.HandleElmoreDrinkingDialogue(true); 
 
 
             }

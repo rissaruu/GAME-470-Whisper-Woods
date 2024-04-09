@@ -10,7 +10,9 @@ public class ItemIndex : MonoBehaviour
 
     public Dictionary<string, int> inventoryItems;
     public int itemIndex;
-    
+
+    public Map Map;
+
 
     // Singleton pattern to ensure only one instance of the InventoryManager exists
     public static ItemIndex instance;
@@ -26,6 +28,31 @@ public class ItemIndex : MonoBehaviour
         inventoryItems.Add(itemName, itemIndex);
         itemIndex++;
         GameManager.foundEvidence++;
+
+
+        if (itemName == "LuggageKey")
+        {
+            Map.DeletePreviousHighlights();
+            Map.guestRoomHighlight.SetActive(true);
+            Map.hintText.text = "Use key to open the room.";
+        }
+        if (itemName == "DroranAd")
+        {
+            Map.DeletePreviousHighlights();
+            Map.hallwayHighlight.SetActive(true);
+            Map.hintText.text = "Talk to someone who might be helpful.";
+        }
+        if (itemName == "Scroll")
+        {
+            Map.DeletePreviousHighlights();
+            Map.diningRoomHighlight.SetActive(true);
+        }
+        if (itemName == "OwnerKey")
+        {
+            Map.DeletePreviousHighlights();
+            Map.ownerOfficeHighlight.SetActive(true);
+            Map.hintText.text = "Unlock the owner's office.";
+        }
     }
 
     void Awake()

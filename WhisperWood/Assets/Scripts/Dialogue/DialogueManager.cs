@@ -89,6 +89,7 @@ public class DialogueManager : MonoBehaviour
     private bool shouldDroranDialogue2;
     private bool shouldDroranEndDialogue;
 
+    public Map Map;
 
     private void Start()
     {
@@ -192,6 +193,9 @@ public class DialogueManager : MonoBehaviour
                 shouldElmorePuzzleBegin = true;
                 shouldRandomBeginnerElmoreDialogue = false;
                 ElmoreRandomizedTrigger1.SetActive(false);
+                Map.DeletePreviousHighlights();
+                Map.diningRoomHighlight.SetActive(true);
+                Map.hintText.text = "Find more information.";
             }
         }
 
@@ -211,6 +215,9 @@ public class DialogueManager : MonoBehaviour
                 if (!DrinkingPuzzle.notRiggedAnymore)
                 {
                     shouldElmoreBadPuzzleEnding = true;
+                    Map.DeletePreviousHighlights();
+                    Map.employeeLoungeHighlight.SetActive(true);
+                    Map.hintText.text = "There must be some sort of magical scroll to help you defeat Elmore.";
                 }
                 else
                 {
@@ -233,6 +240,9 @@ public class DialogueManager : MonoBehaviour
                 shouldRandomEndElmoreDialogue = true;
                 shouldRandomBeginnerCoralDialogue = false;
                 shouldCoralDialogue2 = true;
+                Map.DeletePreviousHighlights();
+                Map.unnamedRoomHighlight.SetActive(true);
+                Map.hintText.text = "You must find the combination for the keypad.";
             }
             if (character.name == "ElmoreRandomizedDialogueTrigger1")
             {

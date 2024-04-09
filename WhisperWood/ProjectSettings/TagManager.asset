@@ -21,6 +21,7 @@ TagManager:
   - ElmoreAnimations
   - TomAnimations
   - CoralAnimations
+  - OwnerKey
   layers:
   - Default
   - TransparentFX

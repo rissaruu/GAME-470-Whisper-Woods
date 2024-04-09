@@ -15,7 +15,8 @@ public class Interactable : MonoBehaviour
     private ObjectInteract objectInteractable;
     public ItemIndex ItemIndex;
 
-    public GameObject addToInventoryButton;
+
+    //public GameObject addToInventoryButton;
     public GameObject interactingObject;
     public Image interactableImage;
 
@@ -26,6 +27,7 @@ public class Interactable : MonoBehaviour
     public Sprite playingCardCloseImage;
     public Sprite scrollImage;
     public Sprite DroranAdImage;
+    public Sprite OwnerKeyImage;
 
     public GameObject inventoryUI;
     [SerializeField] private Button inventoryButton;
@@ -50,15 +52,18 @@ public class Interactable : MonoBehaviour
     public bool addedPlayingCard;
     public bool addedScroll;
     public bool addedDroranAd;
+    public bool addedOwnerKey;
 
     //Trying to use
     public bool tryingToUsePaintingPiece;
-    public bool tryingToUseTomKey;
+    public bool tryingToUseLuggageKey;
     public bool tryingToUseScroll;
+    public bool tryingToUseOwnerKey;
 
     private void Start()
     {
-        addToInventoryButton.SetActive(false);
+        //addToInventoryButton.SetActive(false);
+        inventoryButton.gameObject.SetActive(false);
         interactableImage.gameObject.SetActive(false);
         inventoryUI.SetActive(false);
         exitButton.gameObject.SetActive(false);
@@ -80,6 +85,7 @@ public class Interactable : MonoBehaviour
             slotButton.enabled = false;
             slotButton.gameObject.SetActive(false); 
         }
+        inventoryButton.onClick.AddListener(() => OnInventoryButtonClick());
     }
 
     public void OnSlotClick(Button slotButton)
@@ -97,13 +103,12 @@ public class Interactable : MonoBehaviour
         if (Item == keyImage)
         {
             //Check if the key can be used via GameManager
-            tryingToUseTomKey = true;
-            
+            tryingToUseLuggageKey = true;
+            Debug.Log("HELLO");
         }
 
         if (Item == paintingPieceImage)
         {
-            tryingToUseTomKey = false;
             tryingToUsePaintingPiece = true;
         }
 
@@ -111,7 +116,12 @@ public class Interactable : MonoBehaviour
         {
             tryingToUseScroll = true;
         }
-        //useButton.gameObject.SetActive(false);  
+
+        if (Item == OwnerKeyImage)
+        {
+            tryingToUseOwnerKey = true;
+        }
+        //useButton.gameObject.SetActive(false);
     }
 
     private void OnInspectButtonClick(Sprite Item)
@@ -140,7 +150,8 @@ public class Interactable : MonoBehaviour
         Debug.Log("NAME: " + interactingObject.name);
         CheckInteractingObject(interactingObject);
         interactableImage.gameObject.SetActive(false);
-        addToInventoryButton.SetActive(false);
+        //addToInventoryButton.SetActive(false);
+        inventoryButton.gameObject.SetActive(false);
         objectInteractable.gameObject.SetActive(false);
         objectInteractable = null;
         GameManager.EnablePlayer();
@@ -164,12 +175,13 @@ public class Interactable : MonoBehaviour
                         GameManager.DisablePlayer();
 
                         interactableImage.gameObject.SetActive(true);
-                        addToInventoryButton.SetActive(true);
+                        //addToInventoryButton.SetActive(true);
+                        inventoryButton.gameObject.SetActive(true);
                         interactingObject = objectInteractable.gameObject;
 
                         
                         AddInteractableObjectImage(interactingObject);
-                        inventoryButton.onClick.AddListener(() => OnInventoryButtonClick());
+                        //inventoryButton.onClick.AddListener(() => OnInventoryButtonClick());
 
                     }
 
@@ -179,7 +191,8 @@ public class Interactable : MonoBehaviour
             {
                 interactableImage.gameObject.SetActive(false);
                 objectInteractable = null;
-                addToInventoryButton.SetActive(false);
+                //addToInventoryButton.SetActive(false);
+                inventoryButton.gameObject.SetActive(false);
 
                 GameManager.EnablePlayer();
 
@@ -247,12 +260,17 @@ public class Interactable : MonoBehaviour
         {
             interactableImage.sprite = DroranAdImage;
         }
-
+        if (interactableObject.CompareTag("OwnerKey"))
+        {
+            interactableImage.sprite = OwnerKeyImage;
+        }
     }
 
     private void CheckInteractingObject(GameObject interactableObject) //After you have pressed the button to add to inventory
     {
         ItemIndex.AddItemToInventory(interactableObject.tag);
+        //inventoryButton.onClick.AddListener(() => OnInventoryButtonClick());
+        //inventoryButton.onClick.RemoveListener(() => OnInventoryButtonClick());
     }
 
     private void SetInventory()
@@ -306,6 +324,13 @@ public class Interactable : MonoBehaviour
                     slotButton.enabled = true;
                     slotButton.GetComponent<Image>().sprite = DroranAdImage;
                     addedDroranAd = true;
+                }
+                else if (ItemIndex.inventoryItems.ContainsKey("OwnerKey") && !addedOwnerKey)
+                {
+                    slotButton.gameObject.SetActive(true);
+                    slotButton.enabled = true;
+                    slotButton.GetComponent<Image>().sprite = OwnerKeyImage;
+                    addedOwnerKey = true;
                 }
 
             }
