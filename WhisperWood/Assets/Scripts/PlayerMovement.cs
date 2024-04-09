@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
 
     void Start()
     {
-        playerAnimation = GameObject.FindWithTag("Player").GetComponent<Animator>();//This should find the detective player model for the animator.
+        playerAnimation = GameObject.FindWithTag("PlayerAnimation").GetComponent<Animator>();//This should find the detective player model for the animator.
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions.FindAction("Move");
         rotateCameraAction = playerInput.actions.FindAction("RotateCamera"); // Initialize rotateCameraAction
