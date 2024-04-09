@@ -24,7 +24,15 @@ public class GameData
     public Vector3 tomLocation;
     public bool meetingScene;
     public bool chaseScene;
-
+    public bool addedCombinationImage;
+    public bool addedTomKey;
+    public bool addedPaintingPiece;
+    public bool addedPlayingCard;
+    public bool addedScroll;
+    public bool addedDroranAd;
+    public bool addedOwnerKey;
+    //public bool addedWallet;
+    //public bool addedList;
 
     public GameData()
     {

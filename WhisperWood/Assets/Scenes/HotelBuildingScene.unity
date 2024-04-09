@@ -11928,7 +11928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ceb8b5f7cb0d434b9bb7ec436b968e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fileName: clock.game
+  fileName: ImNotStable.game
 --- !u!1001 &267168096
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59392,7 +59392,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 536680198}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ec7352fe4ee930498ec90fc43b9b79c, type: 3}
   m_Name: 

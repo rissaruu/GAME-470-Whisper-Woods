@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 //using Microsoft.Unity.VisualStudio.Editor;
 
-public class Interactable : MonoBehaviour
+public class Interactable : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private Transform centerDotTransform;
     [SerializeField] private Transform offsetTransform;
@@ -380,7 +380,40 @@ public class Interactable : MonoBehaviour
             }
         }
 
-
-        
     }
+
+    public void SaveData(ref GameData gameData)
+    {
+        if (gameData != null)
+        {
+            gameData.addedCombinationImage = addedCombinationImage;
+            gameData.addedTomKey = addedTomKey;
+            gameData.addedPaintingPiece = addedPaintingPiece;
+            gameData.addedPlayingCard = addedPlayingCard;
+            gameData.addedScroll = addedScroll;
+            gameData.addedDroranAd = addedDroranAd;
+            gameData.addedOwnerKey = addedOwnerKey;
+            // gameData.addedWallet = addedWallet;
+            // gameData.addedList = addedaddedList;
+        }
+    }
+
+    public void LoadData(GameData gameData)
+    {
+        if (gameData != null)
+        {
+            addedCombinationImage = gameData.addedCombinationImage;
+            addedTomKey = gameData.addedTomKey;
+            addedPaintingPiece = gameData.addedPaintingPiece;
+            addedPlayingCard = gameData.addedPlayingCard;
+            addedScroll = gameData.addedScroll;
+            addedDroranAd = gameData.addedDroranAd;
+            addedOwnerKey = gameData.addedOwnerKey;
+            //addedWallet = gameData.addedWallet;
+            //addedaddedList = gameData.addedList;
+
+        }
+    }
+
+
 }
