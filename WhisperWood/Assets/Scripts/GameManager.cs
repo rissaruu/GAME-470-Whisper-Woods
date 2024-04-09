@@ -39,9 +39,10 @@ public class GameManager : MonoBehaviour
     //GAME VARIABLES
     public ProgressBar progressBar;
     public GameObject chasePrompt;
-    public const int totalEvidence = 7; // for each puzzle
+    public const int totalEvidence = 9; // for each puzzle
     public static int foundEvidence; // increase this value after every puzzle
-    public static bool chaseScene = false; 
+    public static bool meetingScene = false;
+    public static bool chaseScene = false;
 
     public PlayerMovement PlayerMovement;
     public static bool canPause = true;
@@ -62,8 +63,7 @@ public class GameManager : MonoBehaviour
         isPlayer.running = false;
         isPlayer.jumping = false;
 
-        foundEvidence = 0;
-
+        
         // Keep this commented for now until applicable
         // ItemIndex.ResetKeyItems();  
 
@@ -100,21 +100,30 @@ public class GameManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        
-    }
-
-    IEnumerator ChasePrompt()
-    {
-        if (chaseScene && chasePrompt != null)
+        if (meetingScene || chaseScene)
         {
-            // Set the chase prompt as visible
-            chasePrompt.SetActive(true);
-
-            // Wait for 5 seconds
-            yield return new WaitForSeconds(5);
-
-            // Set the chase prompt as inactive after 5 seconds
-            chasePrompt.SetActive(false);
+            foundEvidence = totalEvidence;
         }
     }
+
+    public static void SaveData(ref GameData gameData)
+    {
+        if (gameData != null)
+        {
+            gameData.foundEvidence = foundEvidence;
+            gameData.meetingScene = meetingScene;
+            gameData.chaseScene = chaseScene;
+        }
+    }
+
+    public static void LoadData(GameData gameData)
+    {
+        if (gameData != null)
+        {
+            foundEvidence = gameData.foundEvidence;
+            gameData.meetingScene = meetingScene;
+            gameData.chaseScene = chaseScene;
+        }
+    }
+
 }

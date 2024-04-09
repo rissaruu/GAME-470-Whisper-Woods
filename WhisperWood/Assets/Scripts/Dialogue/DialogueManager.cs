@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 
-public class DialogueManager : MonoBehaviour
+public class DialogueManager : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private GameObject dialogueParent;
     [SerializeField] private TMP_Text dialogueText;
@@ -46,6 +46,7 @@ public class DialogueManager : MonoBehaviour
     private bool shouldTomDialogue2;
     private bool shouldTomDialogue3;
     private bool shouldTomDialogue4;
+    public TomMovement tomMovement;
 
     //BEETLEMAST
     [SerializeField] private GameObject BeetlemastTrigger1;
@@ -377,6 +378,7 @@ public class DialogueManager : MonoBehaviour
         {
             TomTrigger2.SetActive(true);
             shouldTomDialogue2 = false;
+            
         }
 
         if (shouldTomDialogue3)
@@ -592,5 +594,61 @@ public class DialogueManager : MonoBehaviour
         nameTextBox.enabled = false;
         nameBox.SetActive(false);
 
+        if (TomTrigger2.activeInHierarchy)
+        {
+            tomMovement.MoveToDestination();
+        }
     }
+
+    public void SaveData(ref GameData gameData)
+    {
+        if (gameData != null)
+        {
+          
+
+            // Save dialogue triggers
+            gameData.dialogueTriggers = new bool[]
+            {
+                shouldTomDialogue2, shouldTomDialogue3, shouldTomDialogue4,
+                shouldBeetlemastDialogue2, shouldBeetlemastDialogue3, shouldBeetlemastDialogue4,
+                shouldRandomDroranDialogue, shouldDroranDialogue2, shouldDroranEndDialogue,
+                shouldRandomBeginnerElmoreDialogue, shouldRandomEndElmoreDialogue, shouldElmorePuzzleBegin,
+                shouldElmoreBadPuzzleEnding, shouldElmoreGoodPuzzleEnding,
+                shouldCoralDialogue2, shouldRandomBeginnerCoralDialogue, shouldRandomEndCoralDialogue
+            };
+        }
+    }
+
+    public void LoadData(GameData gameData)
+    {
+        if (gameData != null)
+        {
+
+
+            // Load dialogue triggers
+            if (gameData.dialogueTriggers != null && gameData.dialogueTriggers.Length == 18) // Adjust the length based on the number of dialogue triggers
+            {
+                shouldTomDialogue2 = gameData.dialogueTriggers[0];
+                shouldTomDialogue3 = gameData.dialogueTriggers[1];
+                shouldTomDialogue4 = gameData.dialogueTriggers[2];
+                shouldBeetlemastDialogue2 = gameData.dialogueTriggers[3];
+                shouldBeetlemastDialogue3 = gameData.dialogueTriggers[4];
+                shouldBeetlemastDialogue4 = gameData.dialogueTriggers[5];
+                shouldRandomDroranDialogue = gameData.dialogueTriggers[6];
+                shouldDroranDialogue2 = gameData.dialogueTriggers[7];
+                shouldDroranEndDialogue = gameData.dialogueTriggers[8];
+                shouldRandomBeginnerElmoreDialogue = gameData.dialogueTriggers[9];
+                shouldRandomEndElmoreDialogue = gameData.dialogueTriggers[10];
+                shouldElmorePuzzleBegin = gameData.dialogueTriggers[11];
+                shouldElmoreBadPuzzleEnding = gameData.dialogueTriggers[12];
+                shouldElmoreGoodPuzzleEnding = gameData.dialogueTriggers[13];
+                shouldCoralDialogue2 = gameData.dialogueTriggers[14];
+                shouldRandomBeginnerCoralDialogue = gameData.dialogueTriggers[15];
+                shouldRandomEndCoralDialogue = gameData.dialogueTriggers[16];
+            }
+        }
+    }
+
+
+
 }

@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class ItemIndex : MonoBehaviour
+public class ItemIndex : MonoBehaviour, IDataPersistence
 {
     public static bool[] keyItems; // Array to store whether each key item is found
     public Dictionary<string, int> codenameToIndex; // Dictionary to map codenames to indices
@@ -53,6 +54,16 @@ public class ItemIndex : MonoBehaviour
             Map.ownerOfficeHighlight.SetActive(true);
             Map.hintText.text = "Unlock the owner's office.";
         }
+        /*
+        if (itemName == "List")
+        {
+            Map.DeletePreviousHighlights();
+            Map.diningRoomHighlight.SetActive(true);
+            Map.hintText.text = "Solve this case.";
+            GameManager.meetingScene = true;
+            SceneManager.LoadScene("GatheredScene")
+        }
+        */
     }
 
     void Awake()
@@ -71,6 +82,7 @@ public class ItemIndex : MonoBehaviour
             //codenameToIndex.Add("PlayingCard", 4);
             //codenameToIndex.Add("OwnerKey", 5);
             //codenameToIndex.Add("Wallet", 6);
+            //codenameToIndex.Add("List", 7);
         }
         else
         {
@@ -129,16 +141,31 @@ public class ItemIndex : MonoBehaviour
     //}
     //Have to be carefull with capital letters and spelling -Christian
 
-    /*
-    Also attach these WIP methods to each item script -Damian
-    public void LoadData(GameData data)
+    public void LoadData(GameData gameData)
     {
-        data.keyItemCollected.;
+        if (gameData != null && gameData.inventoryData != null)
+        {
+            // Load inventory items from gameData
+            foreach (var item in gameData.inventoryData.inventoryItems)
+            {
+                inventoryItems.Add(item.Key, item.Value);
+            }
+
+            // Load key items from gameData
+            keyItems = gameData.inventoryData.keyItems.ToArray();
+        }
     }
 
-    public void SaveData(ref GameData data)
+    public void SaveData(ref GameData gameData)
     {
-        data.keyItemCollected.;
+        if (gameData != null)
+        {
+            // Save inventory items to gameData
+            gameData.inventoryData.inventoryItems = new Dictionary<string, int>(inventoryItems);
+
+            // Save key items to gameData
+            gameData.inventoryData.keyItems = new List<bool>(keyItems);
+        }
     }
-    */
+
 }

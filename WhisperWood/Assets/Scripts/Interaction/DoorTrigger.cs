@@ -28,6 +28,10 @@ public class DoorTrigger : MonoBehaviour
     {
         pressEText.enabled = false;
         lockedDoorText.enabled = false;
+        if (GameManager.meetingScene || GameManager.chaseScene)
+        {
+            StartCoroutine(OnInteract());
+        }
     }
 
 

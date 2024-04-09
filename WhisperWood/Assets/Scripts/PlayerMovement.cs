@@ -187,21 +187,21 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
             playerAnimation.SetBool("walking", true);
             playerAnimation.SetBool("Jumping", false);
             playerAnimation.SetBool("Running", false);
-           // Debug.Log("Walk Animation works!");
+           Debug.Log("Walk Animation works!");
         }
         else if (GameManager.isPlayer.jumping == true)
         {
             playerAnimation.SetBool("Jumping", true); //This have a refernce issue.
             playerAnimation.SetBool("walking", false);
             playerAnimation.SetBool("Running", false);
-            //Debug.Log("Jumps Animation works!");
+            Debug.Log("Jump Animation works!");
         }
         else if (GameManager.isPlayer.running)
         {
             playerAnimation.SetBool("Running", true);
             playerAnimation.SetBool("walking", false);
             playerAnimation.SetBool("Jumping", false);
-            //Debug.Log("Run Animation works!");
+            Debug.Log("Run Animation works!");
         }
         else
         {

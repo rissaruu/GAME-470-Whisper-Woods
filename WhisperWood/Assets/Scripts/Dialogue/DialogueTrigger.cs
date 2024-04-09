@@ -9,6 +9,7 @@ public class DialogueTrigger : MonoBehaviour
     [SerializeField] private Transform NPCTransform;
     [SerializeField] GameObject player;
 
+
     private bool hasSpoken = false;
     private bool canTrigger;
     public bool startDialogue;
@@ -41,6 +42,7 @@ public class DialogueTrigger : MonoBehaviour
             collidedObject.GetComponent<DialogueManager>().DialogueStart(dialogueStrings, NPCTransform, gameObject);
             //hasSpoken = true;
             canTrigger = false;
+            
 
         }
 

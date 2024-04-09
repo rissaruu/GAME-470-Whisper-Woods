@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+
 //using Microsoft.Unity.VisualStudio.Editor;
 
 public class Interactable : MonoBehaviour
@@ -28,6 +29,8 @@ public class Interactable : MonoBehaviour
     public Sprite scrollImage;
     public Sprite DroranAdImage;
     public Sprite OwnerKeyImage;
+    //public Sprite walletImage;
+    //public Sprite listImage;
 
     public GameObject inventoryUI;
     [SerializeField] private Button inventoryButton;
@@ -53,12 +56,16 @@ public class Interactable : MonoBehaviour
     public bool addedScroll;
     public bool addedDroranAd;
     public bool addedOwnerKey;
+    //public bool addedWallet;
+    //public bool addedList;
 
     //Trying to use
     public bool tryingToUsePaintingPiece;
     public bool tryingToUseLuggageKey;
     public bool tryingToUseScroll;
     public bool tryingToUseOwnerKey;
+    //public bool tryingToUseWallet;
+    //public bool tryingToUseList;
 
     private void Start()
     {
@@ -121,6 +128,18 @@ public class Interactable : MonoBehaviour
         {
             tryingToUseOwnerKey = true;
         }
+
+        /*
+        if (Item == walletImage)
+        {
+            tryingToUseWallet = true;
+        }
+
+        if (Item == listImage)
+        {
+            tryingToUseList = true;
+        }
+        */
         //useButton.gameObject.SetActive(false);
     }
 
@@ -264,6 +283,16 @@ public class Interactable : MonoBehaviour
         {
             interactableImage.sprite = OwnerKeyImage;
         }
+        /*
+         if (interactableObject.CompareTag("Wallet"))
+        {
+            interactableImage.sprite = walletImage;
+        } 
+           if (interactableObject.CompareTag("List"))
+        {
+            interactableImage.sprite = listImage;
+        }
+         */
     }
 
     private void CheckInteractingObject(GameObject interactableObject) //After you have pressed the button to add to inventory
@@ -332,7 +361,22 @@ public class Interactable : MonoBehaviour
                     slotButton.GetComponent<Image>().sprite = OwnerKeyImage;
                     addedOwnerKey = true;
                 }
-
+                /*
+                  else if (ItemIndex.inventoryItems.ContainsKey("Wallet") && !addedWallet)
+                {
+                    slotButton.gameObject.SetActive(true);
+                    slotButton.enabled = true;
+                    slotButton.GetComponent<Image>().sprite = walletImage;
+                    addedWallet = true;
+                }
+                  else if (ItemIndex.inventoryItems.ContainsKey("List") && !addedList)
+                {
+                    slotButton.gameObject.SetActive(true);
+                    slotButton.enabled = true;
+                    slotButton.GetComponent<Image>().sprite = listImage;
+                    addedList = true;
+                }
+                */
             }
         }
 

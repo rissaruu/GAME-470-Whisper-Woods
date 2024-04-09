@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HotelBuildingScene.unity
     guid: f157e7cd5cd186e4c8e77c90ef8f7359
+  - enabled: 1
+    path: Assets/Scenes/GatheredScene.unity
+    guid: 40f94b1af17225446990e4f33d332eca
   m_configObjects: {}

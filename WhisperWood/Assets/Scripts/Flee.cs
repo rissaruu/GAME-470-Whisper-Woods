@@ -7,7 +7,7 @@ public class Flee : MonoBehaviour
 {
     public Transform player;
     public float detectionRange = 20f;
-    public float safeDistance = 25f;
+    public float safeDistance = 16f;
     public float avoidanceRadius = 15f;
 
 
@@ -38,18 +38,14 @@ public class Flee : MonoBehaviour
                     Vector3 moveDirection = transform.position - player.position;
                     moveDirection.Normalize();
 
+                    //call animation
+
                     // Move enemy away from player
                     agent.enabled = true; // Enable NavMeshAgent
                     obstacle.enabled = false; // Disable NavMeshObstacle
                     agent.SetDestination(transform.position + moveDirection);
                 }
-                else
-                {
-                    // If player is not too close, stop moving
-                    agent.ResetPath();
-                    agent.enabled = false; // Disable NavMeshAgent
-                    obstacle.enabled = true; // Enable NavMeshObstacle to avoid obstacles
-                }
+                
             }
         }
     }

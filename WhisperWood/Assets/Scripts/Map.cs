@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Map : MonoBehaviour
+public class Map : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private GameObject map;
     public GameObject guestRoomHighlight;
@@ -60,4 +60,39 @@ public class Map : MonoBehaviour
         unnamedRoomHighlight.SetActive(false);
         ownerOfficeHighlight.SetActive(false);
     }
+
+    public void SaveData(ref GameData gameData)
+    {
+        if (gameData != null)
+        {
+            gameData.mapActive = map.activeSelf;
+            gameData.guestRoomHighlightActive = guestRoomHighlight.activeSelf;
+            gameData.lobbyHighlightActive = lobbyHighlight.activeSelf;
+            gameData.hallwayHighlightActive = hallwayHighlight.activeSelf;
+            gameData.employeeLoungeHighlightActive = employeeLoungeHighlight.activeSelf;
+            gameData.diningRoomHighlightActive = diningRoomHighlight.activeSelf;
+            gameData.unnamedRoomHighlightActive = unnamedRoomHighlight.activeSelf;
+            gameData.ownerOfficeHighlightActive = ownerOfficeHighlight.activeSelf;
+            gameData.hintText = hintText.text;
+        }
+    }
+
+    // Load the state of the map from game data
+    public void LoadData(GameData gameData)
+    {
+        if (gameData != null)
+        {
+            map.SetActive(gameData.mapActive);
+            guestRoomHighlight.SetActive(gameData.guestRoomHighlightActive);
+            lobbyHighlight.SetActive(gameData.lobbyHighlightActive);
+            hallwayHighlight.SetActive(gameData.hallwayHighlightActive);
+            employeeLoungeHighlight.SetActive(gameData.employeeLoungeHighlightActive);
+            diningRoomHighlight.SetActive(gameData.diningRoomHighlightActive);
+            unnamedRoomHighlight.SetActive(gameData.unnamedRoomHighlightActive);
+            ownerOfficeHighlight.SetActive(gameData.ownerOfficeHighlightActive);
+            hintText.text = gameData.hintText;
+        }
+    }
+
+
 }
