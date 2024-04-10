@@ -11,7 +11,6 @@ public class TomMovement : MonoBehaviour, IDataPersistence
     private bool hasReachedDestination = false;
     private bool isMoving = false;
     public float rotationAngle = 145f;
-    public Vector3 tomLocation;
 
     void Start()
     {
@@ -54,25 +53,17 @@ public class TomMovement : MonoBehaviour, IDataPersistence
         Quaternion targetRotation = Quaternion.Euler(0f, -rotationAngle, 0f);
         // Apply the rotation to the NPC
         transform.rotation *= targetRotation;
-        tomLocation = transform.position;
     }
 
     public void SaveData(ref GameData gameData)
     {
-        if (gameData != null)
-        {
-            gameData.tomLocation = tomLocation;
-        }
+        gameData.tomPosition = this.transform.position;
+        gameData.tomRotation = this.transform.rotation;
     }
 
     public void LoadData(GameData gameData)
     {
-        if (gameData != null)
-        {
-            // Load Tom's location from game data
-            tomLocation = gameData.tomLocation;
-            // Set Tom's position to the loaded location
-            transform.position = tomLocation;
-        }
+        this.transform.position = gameData.tomPosition;
+        this.transform.rotation = gameData.tomRotation;
     }
 }

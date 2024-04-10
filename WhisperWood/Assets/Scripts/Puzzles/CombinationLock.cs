@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 
-public class CombinationLock : MonoBehaviour
+public class CombinationLock : MonoBehaviour, IDataPersistence
 {
     
 
@@ -216,6 +216,27 @@ public class CombinationLock : MonoBehaviour
         }
 
         return true;
+    }
+
+
+    public void SaveData(ref GameData gameData)
+    {
+        if (gameData != null)
+        {
+            gameData.solvedLuggageCombination = solvedLuggageCombination;
+            gameData.solvedDrawerCombination = solvedDrawerCombination;
+            // Save other relevant fields...
+        }
+    }
+
+    public void LoadData(GameData gameData)
+    {
+        if (gameData != null)
+        {
+            solvedLuggageCombination = gameData.solvedLuggageCombination;
+            solvedDrawerCombination = gameData.solvedDrawerCombination;
+            // Load other relevant fields...
+        }
     }
 
 }

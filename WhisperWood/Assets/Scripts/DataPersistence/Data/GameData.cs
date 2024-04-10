@@ -8,6 +8,10 @@ public class GameData
 
     public Vector3 playerPosition; 
     public Quaternion playerRotation;
+    public Vector3 tomPosition;
+    public Quaternion tomRotation;
+
+    // Order anything below here as not working until confirmed functional
     public InventoryData inventoryData;
     public bool mapActive;
     public bool guestRoomHighlightActive;
@@ -21,7 +25,7 @@ public class GameData
     public float progressSliderValue;
     public bool[] dialogueTriggers;
     public int foundEvidence;
-    public Vector3 tomLocation;
+  
     public bool meetingScene;
     public bool chaseScene;
     public bool addedCombinationImage;
@@ -34,10 +38,16 @@ public class GameData
     //public bool addedWallet;
     //public bool addedList;
 
+    public bool solvedLuggageCombination;
+    public bool solvedDrawerCombination;
+
     public GameData()
     {
         playerPosition = Vector3.zero;
         playerRotation = Quaternion.identity;
+        tomPosition = Vector3.zero;
+        tomRotation = Quaternion.identity;
+
         inventoryData = new InventoryData();
         mapActive = false;
         guestRoomHighlightActive = false;
