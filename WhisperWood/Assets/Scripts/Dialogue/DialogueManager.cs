@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour, IDataPersistence
 {
@@ -153,8 +154,11 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
 
         if (character.CompareTag("Tom"))
         {
+            //characterCard.SetActive(true);
+            //characterCard.GetComponent<Image>().sprite = TomImage;
+
             nameTextBox.GetComponent<TextMeshProUGUI>().text = "Tim";
-            if (character.name == "TomDialogueTrigger1")
+            if (character.name == "TomDialogueTrigger1" && !GameManager.meetingScene)
             {
                 character.SetActive(false);
                 shouldTomDialogue2 = true;
@@ -163,16 +167,18 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
                 BeetlemastTrigger1.SetActive(false);
                 BeetlemastTrigger2.SetActive(false);
             }
-            if (character.name == "TomDialogueTrigger2")
+            if (character.name == "TomDialogueTrigger2" && !GameManager.meetingScene)
             {
                 character.SetActive(false);
                 shouldTomDialogue3 = true;
             }
-            if (character.name == "TomDialogueTrigger3")
+            if (character.name == "TomDialogueTrigger3" && !GameManager.meetingScene)
             {
                 character.SetActive(false);
                 //shouldTomDialogue4 = true;
             }
+            
+
         }
         if (character.CompareTag("Droran"))
         {
@@ -285,6 +291,12 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
             }
         }
 
+        if (GameManager.meetingScene)
+        {
+
+        }
+
+
         //StartCoroutine(TurnCameraTowardsNPC(NPC));
 
         dialogueList = textToPrint;
@@ -308,7 +320,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
             shouldBeetlemastDialogue4 = true;
             BeetlemastTrigger4.SetActive(true);
 
-            if (TomTrigger1.activeInHierarchy)
+            if (TomTrigger1.activeInHierarchy && !GameManager.meetingScene)
             {
                 TomTrigger1.SetActive(false);
                 TomTrigger2.SetActive(true);
@@ -598,6 +610,15 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
         {
             tomMovement.MoveToDestination();
         }
+
+        if (TomTrigger1.activeInHierarchy && GameManager.meetingScene)
+        {
+            GameManager.meetingScene = false;
+            GameManager.chaseScene = true;
+            SceneManager.LoadScene("Chase Scene");
+            // consider save and maybe load game here if ever gets working properly
+        }
+
     }
 
     public void SaveData(ref GameData gameData)
@@ -626,7 +647,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
 
 
             // Load dialogue triggers
-            if (gameData.dialogueTriggers != null && gameData.dialogueTriggers.Length == 18) // Adjust the length based on the number of dialogue triggers
+            if (gameData.dialogueTriggers != null && gameData.dialogueTriggers.Length == 17) // Adjust the length based on the number of dialogue triggers
             {
                 shouldTomDialogue2 = gameData.dialogueTriggers[0];
                 shouldTomDialogue3 = gameData.dialogueTriggers[1];

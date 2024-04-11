@@ -5,14 +5,21 @@ using UnityEngine;
 [System.Serializable]
 public class GameData
 {
-
+    //PlayerMovement
     public Vector3 playerPosition; 
     public Quaternion playerRotation;
+
+    // Order anything below here as not working until confirmed functional
+
+    //TomMovement
     public Vector3 tomPosition;
     public Quaternion tomRotation;
 
-    // Order anything below here as not working until confirmed functional
+    //ItemIndex
     public InventoryData inventoryData;
+
+
+    //Map
     public bool mapActive;
     public bool guestRoomHighlightActive;
     public bool lobbyHighlightActive;
@@ -22,12 +29,19 @@ public class GameData
     public bool unnamedRoomHighlightActive;
     public bool ownerOfficeHighlightActive;
     public string hintText;
+
+    //ProgessBar
     public float progressSliderValue;
+
+    //DialogueManager
     public bool[] dialogueTriggers;
+
+    //GameManager
     public int foundEvidence;
-  
     public bool meetingScene;
     public bool chaseScene;
+
+    //
     public bool addedCombinationImage;
     public bool addedTomKey;
     public bool addedPaintingPiece;
@@ -35,9 +49,10 @@ public class GameData
     public bool addedScroll;
     public bool addedDroranAd;
     public bool addedOwnerKey;
-    //public bool addedWallet;
-    //public bool addedList;
+    public bool addedWallet;
+    public bool addedList;
 
+    //CombinationLock
     public bool solvedLuggageCombination;
     public bool solvedDrawerCombination;
 

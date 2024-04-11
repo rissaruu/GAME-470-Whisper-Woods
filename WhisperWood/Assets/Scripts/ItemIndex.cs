@@ -28,7 +28,7 @@ public class ItemIndex : MonoBehaviour, IDataPersistence
     {
         inventoryItems.Add(itemName, itemIndex);
         itemIndex++;
-        GameManager.foundEvidence++;
+        GameManager.foundEvidence += 1;
 
 
         if (itemName == "LuggageKey")
@@ -54,16 +54,22 @@ public class ItemIndex : MonoBehaviour, IDataPersistence
             Map.ownerOfficeHighlight.SetActive(true);
             Map.hintText.text = "Unlock the owner's office.";
         }
-        /*
+
+        if (itemName == "Wallet")
+        {
+            Map.hintText.text = "There has to be something else in here.";
+        }
+
         if (itemName == "List")
         {
             Map.DeletePreviousHighlights();
             Map.diningRoomHighlight.SetActive(true);
-            Map.hintText.text = "Solve this case.";
+            Map.hintText.text = "Close this case.";
             GameManager.meetingScene = true;
-            SceneManager.LoadScene("GatheredScene")
+            SceneManager.LoadScene("GatheredScene");
+            // consider save and maybe load game here if ever gets working properly
         }
-        */
+
     }
 
     void Awake()

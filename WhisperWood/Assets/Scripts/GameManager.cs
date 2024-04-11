@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     public const float playerWalkSpeed = 5f;
     public const float rotationSpeed = 5f;
     public const float playerRunSpeed = 8f;
-    public const float playerJumpForce = 4f;
+    public const float playerJumpForce = 5f;
 
     public static CanPlayer canPlayer = new CanPlayer();
     public static IsPlayer isPlayer = new IsPlayer();
@@ -39,8 +39,8 @@ public class GameManager : MonoBehaviour
     //GAME VARIABLES
     public ProgressBar progressBar;
     public GameObject chasePrompt;
-    public const int totalEvidence = 9; // for each puzzle
-    public static int foundEvidence; // increase this value after every puzzle
+    public const int totalEvidence = 9; // for each puzzle/item?
+    public static int foundEvidence; // increase this value after every puzzle/item
     public static bool meetingScene = false;
     public static bool chaseScene = false;
 

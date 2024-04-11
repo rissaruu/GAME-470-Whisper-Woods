@@ -12,15 +12,15 @@ EditorBuildSettings:
     path: Assets/Scenes/SceneDaniel.unity
     guid: 612482197171f60449c7d250f59bc240
   - enabled: 1
-    path: Assets/Scenes/Chase Scene.unity
-    guid: 5d1e980147aa34a428d4f31f2ed16edc
-  - enabled: 1
-    path: Assets/Scenes/VictoryScene.unity
-    guid: 30cbdef993c9165468cbf73b3d16088c
-  - enabled: 1
     path: Assets/Scenes/HotelBuildingScene.unity
     guid: f157e7cd5cd186e4c8e77c90ef8f7359
   - enabled: 1
     path: Assets/Scenes/GatheredScene.unity
     guid: 40f94b1af17225446990e4f33d332eca
+  - enabled: 1
+    path: Assets/Scenes/Chase Scene.unity
+    guid: 5d1e980147aa34a428d4f31f2ed16edc
+  - enabled: 1
+    path: Assets/Scenes/VictoryScene.unity
+    guid: 30cbdef993c9165468cbf73b3d16088c
   m_configObjects: {}

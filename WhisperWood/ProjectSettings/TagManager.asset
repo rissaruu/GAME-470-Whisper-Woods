@@ -23,6 +23,7 @@ TagManager:
   - CoralAnimations
   - OwnerKey
   - Wallet
+  - List
   layers:
   - Default
   - TransparentFX

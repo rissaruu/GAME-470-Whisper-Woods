@@ -15,7 +15,8 @@ public class TomMovement : MonoBehaviour, IDataPersistence
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        
+        transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+
     }
 
     void Update()
@@ -57,13 +58,13 @@ public class TomMovement : MonoBehaviour, IDataPersistence
 
     public void SaveData(ref GameData gameData)
     {
-        gameData.tomPosition = this.transform.position;
-        gameData.tomRotation = this.transform.rotation;
+        gameData.tomPosition = transform.position;
+        gameData.tomRotation = transform.rotation;
     }
 
     public void LoadData(GameData gameData)
     {
-        this.transform.position = gameData.tomPosition;
-        this.transform.rotation = gameData.tomRotation;
+        transform.position = gameData.tomPosition;
+        transform.rotation = gameData.tomRotation;
     }
 }

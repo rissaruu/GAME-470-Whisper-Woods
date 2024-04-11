@@ -29,8 +29,8 @@ public class Interactable : MonoBehaviour, IDataPersistence
     public Sprite scrollImage;
     public Sprite DroranAdImage;
     public Sprite OwnerKeyImage;
-    //public Sprite walletImage;
-    //public Sprite listImage;
+    public Sprite walletImage;
+    public Sprite listImage;
 
     public GameObject inventoryUI;
     [SerializeField] private Button inventoryButton;
@@ -56,16 +56,16 @@ public class Interactable : MonoBehaviour, IDataPersistence
     public bool addedScroll;
     public bool addedDroranAd;
     public bool addedOwnerKey;
-    //public bool addedWallet;
-    //public bool addedList;
+    public bool addedWallet;
+    public bool addedList;
 
     //Trying to use
     public bool tryingToUsePaintingPiece;
     public bool tryingToUseLuggageKey;
     public bool tryingToUseScroll;
     public bool tryingToUseOwnerKey;
-    //public bool tryingToUseWallet;
-    //public bool tryingToUseList;
+    public bool tryingToUseWallet;
+    public bool tryingToUseList;
 
     private void Start()
     {
@@ -129,7 +129,6 @@ public class Interactable : MonoBehaviour, IDataPersistence
             tryingToUseOwnerKey = true;
         }
 
-        /*
         if (Item == walletImage)
         {
             tryingToUseWallet = true;
@@ -139,7 +138,7 @@ public class Interactable : MonoBehaviour, IDataPersistence
         {
             tryingToUseList = true;
         }
-        */
+        
         //useButton.gameObject.SetActive(false);
     }
 
@@ -283,7 +282,7 @@ public class Interactable : MonoBehaviour, IDataPersistence
         {
             interactableImage.sprite = OwnerKeyImage;
         }
-        /*
+        
          if (interactableObject.CompareTag("Wallet"))
         {
             interactableImage.sprite = walletImage;
@@ -292,7 +291,7 @@ public class Interactable : MonoBehaviour, IDataPersistence
         {
             interactableImage.sprite = listImage;
         }
-         */
+         
     }
 
     private void CheckInteractingObject(GameObject interactableObject) //After you have pressed the button to add to inventory
@@ -361,7 +360,7 @@ public class Interactable : MonoBehaviour, IDataPersistence
                     slotButton.GetComponent<Image>().sprite = OwnerKeyImage;
                     addedOwnerKey = true;
                 }
-                /*
+                
                   else if (ItemIndex.inventoryItems.ContainsKey("Wallet") && !addedWallet)
                 {
                     slotButton.gameObject.SetActive(true);
@@ -376,7 +375,7 @@ public class Interactable : MonoBehaviour, IDataPersistence
                     slotButton.GetComponent<Image>().sprite = listImage;
                     addedList = true;
                 }
-                */
+                
             }
         }
 
@@ -393,8 +392,8 @@ public class Interactable : MonoBehaviour, IDataPersistence
             gameData.addedScroll = addedScroll;
             gameData.addedDroranAd = addedDroranAd;
             gameData.addedOwnerKey = addedOwnerKey;
-            // gameData.addedWallet = addedWallet;
-            // gameData.addedList = addedaddedList;
+             gameData.addedWallet = addedWallet;
+             gameData.addedList = addedList;
         }
     }
 
@@ -409,8 +408,8 @@ public class Interactable : MonoBehaviour, IDataPersistence
             addedScroll = gameData.addedScroll;
             addedDroranAd = gameData.addedDroranAd;
             addedOwnerKey = gameData.addedOwnerKey;
-            //addedWallet = gameData.addedWallet;
-            //addedaddedList = gameData.addedList;
+            addedWallet = gameData.addedWallet;
+            addedList = gameData.addedList;
 
         }
     }
