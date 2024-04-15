@@ -58,7 +58,7 @@ public class GameData
 
     public GameData()
     {
-        playerPosition = Vector3.zero;
+        playerPosition = new Vector3(1.835f, 1.13f, 2.6f);
         playerRotation = Quaternion.identity;
         tomPosition = Vector3.zero;
         tomRotation = Quaternion.identity;

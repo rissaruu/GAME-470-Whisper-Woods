@@ -172,7 +172,7 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
         this.transform.position = data.playerPosition;
         this.transform.rotation = data.playerRotation;
     }
-
+   
     public void SaveData(ref GameData data)
     {
         data.playerPosition = this.transform.position;
