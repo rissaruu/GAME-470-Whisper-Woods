@@ -41,6 +41,7 @@ public class CombinationLock : MonoBehaviour, IDataPersistence
     [SerializeField] private GameObject luggageTrigger;
     [SerializeField] private GameObject duplicateKey;
     [SerializeField] private GameObject movingDrawer;
+    [SerializeField] private GameObject droranAd;
     [SerializeField] private GameObject drawerTrigger;
     private void Start()
     {
@@ -185,7 +186,7 @@ public class CombinationLock : MonoBehaviour, IDataPersistence
                 Vector3 movement = Vector3.right * 1f;
 
                 movingDrawer.transform.Translate(movement);
-
+                droranAd.SetActive(true);
             }
 
 

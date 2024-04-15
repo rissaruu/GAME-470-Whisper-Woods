@@ -134,10 +134,10 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
             Vector3 oppositeDirection = -slideDirection;
 
             // Move the player
-            transform.Translate(oppositeDirection * GameManager.playerRunSpeed * Time.fixedDeltaTime);
+            transform.Translate(oppositeDirection * GameManager.playerVaultSpeed * Time.fixedDeltaTime);
             rb.AddForce(Vector3.up * GameManager.playerJumpForce * 2, ForceMode.Impulse);
             GameManager.isPlayer.jumping = false;
-            Debug.Log("Vault called");
+            
        
         }
 

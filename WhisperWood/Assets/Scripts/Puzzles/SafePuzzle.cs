@@ -24,7 +24,7 @@ public class SafePuzzle : MonoBehaviour
     {
         keypadUI.SetActive(false);
         timer.gameObject.SetActive(false);
-        totalTime = 20;
+        totalTime = 10;
 
     }
 
