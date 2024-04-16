@@ -133,7 +133,7 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
             StartCoroutine(CanJumpAgain());
         }
      
-       else if (GameManager.isPlayer.jumping && collision.collider.CompareTag("Vault"))
+        else if (GameManager.isPlayer.jumping && collision.collider.CompareTag("Vault"))
         {
 
             // Calculate slide direction using the collision normal
@@ -145,6 +145,7 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
             transform.Translate(oppositeDirection * GameManager.playerVaultSpeed * Time.fixedDeltaTime);
             rb.AddForce(Vector3.up * GameManager.playerJumpForce * 2, ForceMode.Impulse);
             GameManager.isPlayer.jumping = false;
+            GameManager.isPlayer.vaulting = true;
 
             //if (!GameManager.meetingScene)
             //{
@@ -175,6 +176,11 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
         {
             tomInRange = false;
         }
+        else if (collision.collider.CompareTag("Vault")) 
+        {
+            GameManager.isPlayer.vaulting = false;
+            GameManager.isPlayer.jumping = true;
+        }
     }
 
     IEnumerator WaitForText()
@@ -186,6 +192,7 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
     IEnumerator CanJumpAgain()
     {
         GameManager.canPlayer.jump = false;
+        GameManager.isPlayer.vaulting = false;
         GameManager.isPlayer.jumping = false;
         yield return new WaitForSeconds(1f);
         GameManager.canPlayer.jump = true;
@@ -212,14 +219,14 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
             playerAnimation.SetBool("walking", true);
             playerAnimation.SetBool("Jumping", false);
             playerAnimation.SetBool("Running", false);
-           
+            playerAnimation.SetBool("Vaulting", false);
         }
         else if (GameManager.isPlayer.jumping == true)
         {
             playerAnimation.SetBool("Jumping", true); //This have a refernce issue.
             playerAnimation.SetBool("walking", false);
             playerAnimation.SetBool("Running", false);
-            
+            playerAnimation.SetBool("Vaulting", false);
         }
         else if (GameManager.isPlayer.running)
         {
@@ -228,11 +235,19 @@ public class PlayerMovement : MonoBehaviour, IDataPersistence
             playerAnimation.SetBool("Jumping", false);
             
         }
+        else if (GameManager.isPlayer.vaulting)
+        {
+            playerAnimation.SetBool("Running", false);
+            playerAnimation.SetBool("walking", false);
+            playerAnimation.SetBool("Jumping", false);
+            playerAnimation.SetBool("Vaulting", true);
+        }
         else
         {
             playerAnimation.SetBool("walking", false);
             playerAnimation.SetBool("Jumping", false);
             playerAnimation.SetBool("Running", false);
+            playerAnimation.SetBool("Vaulting", false);
         }
     }
 }
