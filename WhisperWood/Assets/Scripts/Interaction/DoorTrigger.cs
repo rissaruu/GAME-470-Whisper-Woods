@@ -89,7 +89,7 @@ public class DoorTrigger : MonoBehaviour
     public void Interaction()
     {
         pressEText.enabled = false;
-        Debug.Log("Door Interaction!");
+        //Debug.Log("Door Interaction!");
         StartCoroutine(OnInteract());
     }
 
@@ -146,7 +146,10 @@ public class DoorTrigger : MonoBehaviour
             }
             else
             {
-                lockedDoorText.enabled = true;
+                if (!keypad.codeSolved)
+                {
+                    lockedDoorText.enabled = true;
+                }             
                 StartCoroutine(WaitForText());
             }
         }

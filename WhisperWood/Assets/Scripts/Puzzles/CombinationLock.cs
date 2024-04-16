@@ -165,7 +165,7 @@ public class CombinationLock : MonoBehaviour, IDataPersistence
 
         if (isCombinationCorrect(correctCombination))
         {
-            Debug.Log("YOU SOLVED IT");
+            //Debug.Log("YOU SOLVED IT");
 
             if (correctCombination == luggageCombination)
             {

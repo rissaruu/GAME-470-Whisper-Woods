@@ -105,13 +105,11 @@ public class Interactable : MonoBehaviour, IDataPersistence
 
     public void OnUseButtonClick(Sprite Item)
     {
-        Debug.Log("ITEM: " + Item);
 
         if (Item == keyImage)
         {
             //Check if the key can be used via GameManager
             tryingToUseLuggageKey = true;
-            Debug.Log("HELLO");
         }
 
         if (Item == paintingPieceImage)
@@ -165,7 +163,7 @@ public class Interactable : MonoBehaviour, IDataPersistence
 
     public void OnInventoryButtonClick()
     {
-        Debug.Log("NAME: " + interactingObject.name);
+        //Debug.Log("NAME: " + interactingObject.name);
         CheckInteractingObject(interactingObject);
         interactableImage.gameObject.SetActive(false);
         //addToInventoryButton.SetActive(false);
@@ -311,7 +309,7 @@ public class Interactable : MonoBehaviour, IDataPersistence
             {
                 if (ItemIndex.inventoryItems.ContainsKey("Combination") && !addedCombinationImage)
                 {
-                    Debug.Log("here");
+                    //Debug.Log("here");
                     slotButton.gameObject.SetActive(true);
                     slotButton.enabled = true;
                     slotButton.GetComponent<Image>().sprite = combinationImage;

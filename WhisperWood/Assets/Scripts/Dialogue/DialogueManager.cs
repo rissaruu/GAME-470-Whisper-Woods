@@ -13,8 +13,8 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
     [SerializeField] private Button option1Button;
     [SerializeField] private Button option2Button;
 
-    [SerializeField] private float typingSpeed = 0.02f;
-    [SerializeField] private float turnSpeed = 2;
+    private float typingSpeed = 0.009f;
+    private float turnSpeed = 2;
 
     private List<DialogueString> dialogueList;
 
@@ -34,6 +34,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
     public CardPuzzle CardPuzzle;
 
     //IMAGES
+    [SerializeField] private Sprite TomImage;
     [SerializeField] private Sprite CoralImage;
     [SerializeField] private Sprite BeetlemastImage;
     [SerializeField] private Sprite ElmoreImage;
@@ -154,8 +155,8 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
 
         if (character.CompareTag("Tom"))
         {
-            //characterCard.SetActive(true);
-            //characterCard.GetComponent<Image>().sprite = TomImage;
+            characterCard.SetActive(true);
+            characterCard.GetComponent<Image>().sprite = TomImage;
 
             nameTextBox.GetComponent<TextMeshProUGUI>().text = "Tim";
             if (character.name == "TomDialogueTrigger1" && !GameManager.meetingScene)

@@ -56,8 +56,8 @@ public class SafePuzzle : MonoBehaviour
         if (totalTime == 0 && !reachedSafe) //restart
         {
             keypad.codeSolved = false;
-            totalTime = 20;
-            timer.text = "20";
+            totalTime = 10;
+            timer.text = "10";
             timerSet = false;
             timer.gameObject.SetActive(false);
             keypad.OnClearClick();
