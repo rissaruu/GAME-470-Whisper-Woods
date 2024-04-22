@@ -11,10 +11,12 @@ public class TomMovement : MonoBehaviour, IDataPersistence
     private bool hasReachedDestination = false;
     private bool isMoving = false;
     public float rotationAngle = 145f;
+    public Animator TomNPCAnimation;
 
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        TomNPCAnimation = GameObject.FindWithTag("TomAnimations").GetComponent<Animator>();
         transform.rotation = Quaternion.Euler(0f, 180f, 0f);
 
     }
@@ -26,6 +28,7 @@ public class TomMovement : MonoBehaviour, IDataPersistence
             // If the NPC has reached the destination, stop its movement
             hasReachedDestination = true;
             navMeshAgent.isStopped = true;
+            TomNPCAnimation.SetBool("NPCWalk", false);
             RotateNPC();
         }
         
@@ -36,6 +39,7 @@ public class TomMovement : MonoBehaviour, IDataPersistence
         if (destination != null)
         {
             //call animation
+            TomNPCAnimation.SetBool("NPCWalk", true);
             isMoving = true;
             navMeshAgent.SetDestination(destination.position);
             hasReachedDestination = false;

@@ -9,6 +9,7 @@ public class Flee : MonoBehaviour
     public float detectionRange = 20f;
     public float safeDistance = 16f;
     public float avoidanceRadius = 15f;
+    public Animator TomNPCAnimation;
 
 
     private NavMeshAgent agent;
@@ -18,11 +19,13 @@ public class Flee : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         obstacle = GetComponent<NavMeshObstacle>();
+        TomNPCAnimation = GameObject.FindWithTag("TomAnimations").GetComponent<Animator>();
         obstacle.enabled = false; // Disable the obstacle initially
     }
 
     void Update()
     {
+        TomNPCAnimation.SetBool("NPCRun", false);
         if (player != null)
         {
             // Calculate distance between enemy and player
@@ -39,6 +42,7 @@ public class Flee : MonoBehaviour
                     moveDirection.Normalize();
 
                     //call animation
+                    TomNPCAnimation.SetBool("NPCRun", true);
 
                     // Move enemy away from player
                     agent.enabled = true; // Enable NavMeshAgent
