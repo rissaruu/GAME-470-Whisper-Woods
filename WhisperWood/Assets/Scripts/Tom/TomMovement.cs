@@ -15,9 +15,10 @@ public class TomMovement : MonoBehaviour, IDataPersistence
 
     void Start()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        TomNPCAnimation = GameObject.FindWithTag("TomAnimations").GetComponent<Animator>();
         transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        TomNPCAnimation = GameObject.FindWithTag("Tom").GetComponent<Animator>();
+        
 
     }
 
